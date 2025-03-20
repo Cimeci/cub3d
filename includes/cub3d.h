@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 14:26:10 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:35:45 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ bool		parsing(char *file, t_data *data);
 
 void		print_error_exit(char *str, t_data *data);
 void		init_data(t_data *data);
+void		free_all(t_data *data);
 
 bool		check_identifier(char *buf, t_data *data);
 bool		pars_identifier(t_data *data);

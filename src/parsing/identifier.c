@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 14:21:57 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:50:26 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ bool	check_colors(char *str, int it)
 		i++;
 	}
 	number[i] = '\0';
-	if (i == 0 || ft_atoi(number) > 255 || atoi(number) < 0)
+	if (i == 0 || ft_atoi(number) > 255 || ft_atoi(number) < 0)
 		return (false);
-	if ((it == 2 && !str[i]) || str[i] == ',')
+	if ((it == 2 && !str[i]) || (str[i] == ',' && it < 3))
 	{
 		if (it == 2 && !str[i])
 			return (true);

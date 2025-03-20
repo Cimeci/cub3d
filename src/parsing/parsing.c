@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 14:48:15 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:50:57 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ static bool	extract_file(char *filename, t_data *data)
 	if (!file)
 		print_error_exit("Failed to access to the .cub file", data);
 	extract_identifiers(file, data, &i, &is_id); // free file
+	while (file[i][0] == '\0')
+		i++;
 	if (!check_map(file + i, data))
 	{
 		ft_freetab(file);
