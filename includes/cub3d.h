@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 08:21:41 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:26:10 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ typedef struct s_data
 
 bool		is_space(char c);
 bool		parsing(char *file, t_data *data);
+
+void		print_error_exit(char *str, t_data *data);
+void		init_data(t_data *data);
 
 bool		check_identifier(char *buf, t_data *data);
 bool		pars_identifier(t_data *data);

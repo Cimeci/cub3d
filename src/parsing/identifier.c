@@ -3,77 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 06:37:31 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:21:57 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	is_all_digit(char *nb)
-{
-	int	i;
-
-	i = 0;
-	while (nb[i])
-	{
-		if (!ft_isdigit(nb[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-static bool	check_identifier_path(t_data *data)
-{
-	int	fd;
-
-	fd = open(data->n_txr, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	close(fd);
-	fd = open(data->s_txr, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	close(fd);
-	fd = open(data->e_txr, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	close(fd);
-	fd = open(data->w_txr, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	close (fd);
-	return (true);
-}
-
-bool	pars_identifier(t_data *data)
-{
-	char	**f_colors;
-	char	**c_colors;
-	int		i;
-
-	i = 0;
-	f_colors = ft_split(data->f_color, ',');
-	c_colors = ft_split(data->c_color, ',');
-	if (ft_strlentab(f_colors) != 3 || ft_strlentab(c_colors) != 3)
-		return (ft_freetab(f_colors) && ft_freetab(c_colors));
-	while (f_colors[i] && c_colors[i])
-	{
-		if (!is_all_digit(f_colors[i]) || !is_all_digit(c_colors[i]))
-			return (ft_freetab(f_colors) && ft_freetab(c_colors));
-		if (ft_atoi(f_colors[i]) < 0 || ft_atoi(f_colors[i]) > 255
-			|| ft_atoi(c_colors[i]) < 0 || ft_atoi(c_colors[i]) > 255)
-			return (ft_freetab(f_colors) && ft_freetab(c_colors));
-		i++;
-	}
-	// condition pour le check des textures, a activer quand on aura des fichiers textures
-	if (!check_identifier_path(data))
-		;
-	return (true);
-}
 
 static int	compare_identifier(char *id, int len)
 {
@@ -94,23 +31,50 @@ static int	compare_identifier(char *id, int len)
 	return (0);
 }
 
-static char	*take_path(char *buf)
+char	*take_path(char *buf)
 {
 	char	*path;
 	int		len;
 
-	len = 0;
-	while (buf[len] && !is_space(buf[len]))
-		len++;
+	len = ft_strlen(buf);
+	while (len > 0 && is_space(buf[len]))
+		len--;
 	path = ft_substr(buf, 0, len);
 	if (!path)
 		return (NULL);
 	return (path);
 }
 
+bool	check_colors(char *str, int it)
+{
+	int		i;
+	char	number[10];
+
+	i = 0;
+	if (it == 3)
+		return (true);
+	while (str[i] && (str[i] >= '0' && str[i] <= '9') && i < 10)
+	{
+		number[i] = str[i];
+		i++;
+	}
+	number[i] = '\0';
+	if (i == 0 || ft_atoi(number) > 255 || atoi(number) < 0)
+		return (false);
+	if ((it == 2 && !str[i]) || str[i] == ',')
+	{
+		if (it == 2 && !str[i])
+			return (true);
+		if (it < 2 && str[i])
+			i++;
+		return (check_colors(str + i, it + 1));
+	}
+	return (false);
+}
+
 static void	assign_texture(int id, char *buf, t_data *data)
 {
-	char	*path;
+	char *path;
 
 	path = take_path(buf);
 	if (!path)
@@ -123,11 +87,18 @@ static void	assign_texture(int id, char *buf, t_data *data)
 		data->w_txr = path;
 	else if (id == EA)
 		data->e_txr = path;
-	else if (id == F)
-		data->f_color = path;
-	else if (id == C)
-		data->c_color = path;
-	printf("id: %d |path: %s\n", id, path);
+	else if (id == F || id == C)
+	{
+		if (!check_colors(path, 0))
+		{
+			free(path);
+			print_error_exit("RGB color is invalid", data);
+		}
+		if (id == F)
+			data->f_color = path;
+		else if (id == C)
+			data->c_color = path;
+	}
 }
 
 bool	check_identifier(char *buf, t_data *data)

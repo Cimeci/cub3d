@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 13:43:43 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:32:55 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,9 @@ bool	check_map(char **file, t_data *data)
 	printf("-----------------\n");
 	newmap = ft_clone(data->map);
 	if (!newmap)
-		return (false);
+		print_error_exit
 	if (!flood_fill(newmap, data->y, data->x))
-	{
-		printf("Error\nMap not valid\n");
-		ft_freetab(newmap);
-		return (false);
-	}
+		print_error_exit("Map not valid", data); // free newmap
 	printf("MAP\n");
 	k = 0;
 	while (newmap[k])
