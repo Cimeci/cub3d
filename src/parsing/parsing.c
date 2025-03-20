@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 14:30:57 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:48:15 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ static bool	extract_file(char *filename, t_data *data)
 	if (!file)
 		print_error_exit("Failed to access to the .cub file", data);
 	extract_identifiers(file, data, &i, &is_id); // free file
-	if (!pars_identifier(data))
-		print_error_exit("Identifier input false", data); // free file
 	if (!check_map(file + i, data))
 	{
 		ft_freetab(file);
@@ -135,6 +133,6 @@ static void	check_extension(char *file)
 bool parsing(char *file, t_data *data)
 {
 	check_extension(file);
-	copy_file(file, data);
+	extract_file(file, data);
 	return (true);
 }

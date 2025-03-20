@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 14:32:55 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:59:04 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ bool	check_map(char **file, t_data *data)
 	i = 0;
 	j = 0;
 	len = 0;
+	// while (file[i] && file[i][0] == '\0')
+	// 	i++;
+	printf("NO: %s\nSO: %s\nWE: %s\nEA: %s\nF: %s\nC: %s\n", data->n_txr, data->s_txr, data->e_txr, data->w_txr, data->c_color, data->f_color);
 	printf("-----------------\n");
 	printf(" CHECK ERROR MAP\n");
 	printf("-----------------\n");
@@ -118,14 +121,15 @@ bool	check_map(char **file, t_data *data)
 	create_map(file, data);
 	k = 0;
 	while (data->map[k])
-		printf("%s\n", data->map[k++]);
-	printf("-----------------\n");
+		printf("|%s|\n", data->map[k++]);
 	newmap = ft_clone(data->map);
 	if (!newmap)
-		print_error_exit
+		print_error_exit("Newmap clone", data);
 	if (!flood_fill(newmap, data->y, data->x))
 		print_error_exit("Map not valid", data); // free newmap
+	printf("-----------------\n");
 	printf("MAP\n");
+	printf("-----------------\n");
 	k = 0;
 	while (newmap[k])
 		printf("%s\n", newmap[k++]);
