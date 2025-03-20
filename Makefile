@@ -6,7 +6,7 @@
 #    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/03/20 05:44:24 by inowak--         ###   ########.fr        #
+#    Updated: 2025/03/20 13:52:57 by inowak--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRC = src/main.c \
 	  src/parsing/create_map.c \
 	  src/parsing/identifier.c \
 	  src/parsing/flood_fill.c \
-	  src/display/window.c
 
 GNL_SRC = lib/GNL/get_next_line.c \
 	  lib/GNL/get_next_line_utils.c

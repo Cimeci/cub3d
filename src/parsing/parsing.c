@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 07:20:26 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:53:28 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char	**copy_file(char *filename)
 
 static bool	extract_identifiers(char **file, t_data *data, int *i, int *is_id)
 {
-	while (file[*i] && *is_id < 7)
+	while (file[*i] && *is_id < 6)
 	{
 		if (file[*i][0] == '\0')
 		{

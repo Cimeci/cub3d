@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:13:06 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 04:49:48 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:53:10 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	parsing(argv[1], &data);
-	display(&data);
 	return (0);
 }
