@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 15:50:57 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:18:36 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,109 +19,70 @@ bool	is_space(char c)
 	return (false);
 }
 
-static int	count_line(char *file)
-{
-	int		fd;
-	char	*line;
-	int		len;
-
-	len = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		len++;
-		free(line);
-	}
-	close(fd);
-	return (len);
-}
-
-static char	*suppnl(char *line)
+static void	suppnl(char *line)
 {
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if (line[i] == '\n')
-			return (ft_substr(line, 0, ft_strlen(line) - 1));
+			line[i] = '\0';
 		i++;
 	}
-	return (ft_strdup(line));
 }
 
-static char	**copy_file(char *filename)
+static void	extract_file(char *filename, t_data *data)
 {
+	int		is_id;
 	int		fd;
-	int		i;
-	int		len;
-	char	*line;
-	char	**file;
+	char	*buf;
+	t_list	*node;
 
-	i = 0;
-	len = count_line(filename);
-	if (!len)
-		return (NULL);
+	is_id = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (NULL);
-	file = malloc(sizeof(char *) * (len + 1));
-	if (!file)
-		return (NULL);
-	while (i < len)
-	{
-		line = get_next_line(fd);
-		file[i] = suppnl(line);
-		i++;
-		free(line);
-	}
-	file[i] = NULL;
-	close(fd);
-	return (file);
-}
-
-static void	extract_identifiers(char **file, t_data *data, int *i, int *is_id)
-{
-	while (file[*i] && *is_id < 6)
-	{
-		if (file[*i][0] == '\0')
-		{
-			(*i)++;
-			continue ;
-		}
-		if (!check_identifier(file[*i], data))
-			print_error_exit("Invalid identifier", data);
-		(*is_id)++;
-		(*i)++;
-	}
-}
-
-static bool	extract_file(char *filename, t_data *data)
-{
-	char	**file;
-	int		i;
-	int		is_id;
-
-	i = 0;
-	is_id = 0;
-	file = copy_file(filename);
-	if (!file)
 		print_error_exit("Failed to access to the .cub file", data);
-	extract_identifiers(file, data, &i, &is_id); // free file
-	while (file[i][0] == '\0')
-		i++;
-	if (!check_map(file + i, data))
+	while (is_id < 6)
 	{
-		ft_freetab(file);
-		return (false);
+		buf = get_next_line(fd);
+		if (buf[0] != '\n')
+		{
+			suppnl(buf);
+			if (!buf || !check_identifier(buf, data))
+			{
+				free(buf);
+				print_error_exit("Invalid identifier", data); // free buffer
+			}
+			is_id++;
+		}
+		free(buf);
 	}
-	ft_freetab(file);
-	return (true);
+	while (1)
+	{
+		buf = get_next_line(fd);
+		if (buf && buf[0] != '\n')
+		{
+			suppnl(buf);
+			node = ft_lstnew(buf);
+			if (!node)
+				print_error_exit("Malloc error", data); // free buffer
+			ft_lstadd_back(&data->map_lst, node);
+			break ;
+		}
+		free(buf);
+	}
+	while (1)
+	{
+		buf = get_next_line(fd);
+		suppnl(buf);
+		if (!buf)
+			break ;
+		node = ft_lstnew(buf);
+		if (!node)
+			print_error_exit("Malloc error", data); // free buffer
+		ft_lstadd_back(&data->map_lst, node);
+	}
 }
 
 static void	check_extension(char *file)
@@ -132,9 +93,10 @@ static void	check_extension(char *file)
 		print_error_exit("Invalid .cub file", NULL);
 }
 
-bool parsing(char *file, t_data *data)
+bool	parsing(char *file, t_data *data)
 {
 	check_extension(file);
 	extract_file(file, data);
+	check_map(data, data->map_lst);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 16:50:26 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:27:04 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ bool	check_colors(char *str, int it)
 
 static void	assign_texture(int id, char *buf, t_data *data)
 {
-	char *path;
+	char	*path;
 
 	path = take_path(buf);
 	if (!path)
 		return ;
 	if (id == NO)
-		data->n_txr = path;
+		data->window->n_txr = path;
 	else if (id == SO)
-		data->s_txr = path;
+		data->window->s_txr = path;
 	else if (id == WE)
-		data->w_txr = path;
+		data->window->w_txr = path;
 	else if (id == EA)
-		data->e_txr = path;
+		data->window->e_txr = path;
 	else if (id == F || id == C)
 	{
 		if (!check_colors(path, 0))
@@ -95,9 +95,9 @@ static void	assign_texture(int id, char *buf, t_data *data)
 			print_error_exit("RGB color is invalid", data);
 		}
 		if (id == F)
-			data->f_color = path;
+			data->window->f_color = path;
 		else if (id == C)
-			data->c_color = path;
+			data->window->c_color = path;
 	}
 }
 
@@ -111,8 +111,8 @@ bool	check_identifier(char *buf, t_data *data)
 	len = 0;
 	while (buf[i] && is_space(buf[i]))
 		i++;
-	if (!buf[i] || buf[i] == '\n')
-		return (false);
+	if (!buf[i])
+		return (true);
 	while (buf[i + len] && !is_space(buf[i + len]))
 		len++;
 	id = compare_identifier(buf + i, len);

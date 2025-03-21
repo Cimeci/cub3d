@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
+#    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/03/20 14:23:38 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/03/21 11:30:00 by inowak--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC = src/main.c \
 	  src/parsing/identifier.c \
 	  src/parsing/flood_fill.c \
 	  src/utils/errors_utils.c \
-	  src/utils/init.c
+	  src/utils/init.c\
+	  src/game/window.c\
 
 GNL_SRC = lib/GNL/get_next_line.c \
 	  lib/GNL/get_next_line_utils.c
