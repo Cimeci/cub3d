@@ -6,7 +6,7 @@
 #    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/03/21 11:30:00 by inowak--         ###   ########.fr        #
+#    Updated: 2025/03/24 14:41:49 by inowak--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC = src/main.c \
 	  src/utils/errors_utils.c \
 	  src/utils/init.c\
 	  src/game/window.c\
+	  src/game/raycasting.c\
 
 GNL_SRC = lib/GNL/get_next_line.c \
 	  lib/GNL/get_next_line_utils.c

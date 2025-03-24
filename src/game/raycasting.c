@@ -6,144 +6,97 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/21 14:57:26 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:55:28 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_ray(t_data *data)
+void	dda(t_data *data)
 {
-    // Position initiale du joueur (au milieu de la carte)
-    data->ray->pos_x = data->player->x + 0.5;
-    data->ray->pos_y = data->player->y + 0.5;
-
-    // Direction initiale (regarde vers le nord)
-    data->ray->dir_x = -1.0;
-    data->ray->dir_y = 0.0;
-
-    // Plan de la caméra (pour le FOV)
-    data->ray->plane_x = 0.0;
-    data->ray->plane_y = 0.66;
-
-    // Vitesse de déplacement et de rotation
-    data->ray->move_speed = 0.1;
-    data->ray->rot_speed = 0.1;
-}
-
-void    dda(t_data *data)
-{
-    double  camera_x;
     t_ray   *ray;
 
     ray = data->ray;
-    camera_x = 2 * data->player->x / (double)WIN_WIDTH - 1;
-    ray->ray_dir_x = ray->dir_x + ray->plane_x * camera_x;
-    ray->ray_dir_y = ray->dir_y + ray->plane_y * camera_x;
-
-    ray->delta_dist_x = abs(1 / ray->ray_dir_x);
-    ray->delta_dist_y = abs(1 / ray->ray_dir_y);
-    
-    ray->map_x = (int)ray->pos_x;
-    ray->map_y = (int)ray->pos_y;
-    if (ray->ray_dir_x < 0)
-    {
-        ray->step_x = -1;
-        ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
-    }
-    else
-    {
-        ray->step_x = 1;
-        ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_x;
-    }
-    if (ray->ray_dir_y < 0)
-    {
-        ray->step_y = -1;
-        ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
-    }
-    else
-    {
-        ray->step_y = 1;
-        ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
-    }
-    
-    ray->hit = 0;
-    while (ray->hit == 0)
-    {
-        if (ray->side_dist_x < ray->side_dist_y)
-        {
-            ray->side_dist_x += ray->delta_dist_x;
-            ray->map_x += ray->step_x;
-            ray->side = 0;
-        }
-        else
-        {
-            ray->side_dist_x += ray->delta_dist_y;
-            ray->map_y += ray->step_y;
-            ray->side = 1;
-        }
-        if (data->map[ray->map_x][ray->map_y] > 0)
-            ray->hit = 1;
-    }
-
-    if (ray->side == 0)
-        ray->wall_dist = (ray->side_dist_x - ray->delta_dist_x);
-    else
-        ray->wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-    
-    if (ray->side == WEST || ray->side == EAST)
-        ray->wall_x = data->player->y + ray->wall_dist * ray->ray_dir_y;
-    else
-        ray->wall_x = data->player->x + ray->wall_dist * ray->ray_dir_x;
-    ray->wall_x -= floor(ray->wall_x);
-    data->line->x = ray->pos_x;
-
-    if (data->map[ray->map_y][ray->map_x] == '1')
-        paint_texture_line(data);
-    data->line->y0 = 0;
-    data->line->y1 = ray->draw_start;
-    paint_line(data, data->window->c_color);
-    data->line->y0 = WIN_HEIGHT;
-    data->line->y1 = ray->draw_end;
-    paint_line(data, data->window->f_color);
-}
-
-pixel_on_img(int rgb, int x, int y, t_image *img)
-{
-    int	r;
-    int	g;
-    int	b;
-
-    r = (rgb >> 16) & 0xFF;
-    g = (rgb >> 8) & 0xFF;
-    b = rgb & 0xFF;
-    img->data[y * img->line_length + x * img->bits_per_pixel / 8] = b;
-    img->data[y * img->line_length + x * img->bits_per_pixel / 8 + 1] = g;
-    img->data[y * img->line_length + x * img->bits_per_pixel / 8 + 2] = r;
-}
-
-void	paint_line(t_root *root, t_line *line, int rgb) // or paint_texture_line
-{
-	int	y;
-	int	y_max;
-
-	if (line->y0 < line->y1)
+	int	i = 0;
+	for (int x = 0; x < SCREEN_WIDTH; x++)
 	{
-		y = line->y0;
-		y_max = line->y1;
-	}
-	else
-	{
-		y = line->y1;
-		y_max = line->y0;
-	}
-	if (y >= 0)
-	{
-		while (y < y_max)
+		// Calcul de la position et de la direction du rayon
+		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+		// Coordonnée x dans l'espace caméra
+		ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
+		ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
+		// Case de la map où nous nous trouvons
+		ray->map_x = (int)ray->pos_x;
+		ray->map_y = (int)ray->pos_y;
+		// Longueur du rayon depuis la position actuelle jusqu'au prochain côté x ou y
+		// Longueur du rayon d'un côté x ou y au prochain côté x ou y
+		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+		// Direction pour avancer dans la carte (soit +1, soit -1)
+		ray->hit = 0; // Le mur a-t-il été touché ? 
+		// Calcul de step et sideDist initial
+		if (ray->ray_dir_x < 0)
 		{
-			pixel_on_img(rgb, line->x, y, root->mlx_img);
-			// or texture_on_img
-			y++;
+			ray->step_x = -1;
+			ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
 		}
+		else
+		{
+			ray->step_x = 1;
+			ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_x;
+		}
+		if (ray->ray_dir_y < 0)
+		{
+			ray->step_y = -1;
+			ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
+		}
+		else
+		{
+			ray->step_y = 1;
+			ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
+		}
+		// Algorithme DDA (Digital Differential Analysis)
+		while (ray->hit == 0)
+		{
+			// Saut à la prochaine case de la map, soit en x, soit en y
+			if (ray->side_dist_x < ray->side_dist_y)
+			{
+				ray->side_dist_x += ray->delta_dist_x;
+				ray->map_x += ray->step_x;
+				ray->side = 0;
+			}
+			else
+			{
+				ray->side_dist_y += ray->delta_dist_y;
+				ray->map_y += ray->step_y;
+				ray->side = 1;
+			}
+			// Vérifie si le rayon a touché un mur
+			if (data->map[ray->map_x][ray->map_y] == '1')
+				ray->hit = 1;
+		}
+		// Calcul de la distance projetée sur la direction de la caméra
+		if (ray->side == 0)
+			ray->perp_wall_dist = (ray->map_x - ray->pos_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+		else
+			ray->perp_wall_dist = (ray->map_y - ray->pos_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		// Calcul de la hauteur de la ligne à dessiner à l'écran
+		ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
+		// Calcul des pixels de début et fin les plus bas et hauts pour la bande actuelle
+		ray->draw_start = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
+		if (ray->draw_start < 0)
+			ray->draw_start = 0;
+		ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
+		if (ray->draw_end >= SCREEN_HEIGHT)
+			ray->draw_end = SCREEN_HEIGHT - 1;
+		// Choisir une couleur en fonction du type de mur
+		if (data->map[ray->map_x][ray->map_y] == '1')
+			ray->img[i] = 0xFF0000; // Rouge
+		else
+			ray->img[i] = 0xFFFFFF; // Blanc
+		// Donner une couleur différente selon l'orientation du mur
+		if (ray->side == 1)
+			ray->img[i] = ray->color / 2;
+		i++;
 	}
 }

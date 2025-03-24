@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/21 13:26:44 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:21:19 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ bool	check_map(t_data *data, t_list *map)
 				printf("line player: |%s|\n", tmp->content);
 				data->player->y = j;
 				data->player->x = i;
+				data->ray->pos_x = j;
+				data->ray->pos_y = i;
 				data->player->or = tmp->content[i];
 				printf("player: x = %d| y = %d| or = %c\n", data->player->x,
 					data->player->y, data->player->or);

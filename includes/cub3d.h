@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/21 14:56:37 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:07:10 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../lib/libft/libft.h"
 # include "../lib/minilibx/mlx.h"
 # include <fcntl.h>
+# include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -41,26 +42,7 @@ typedef struct s_player
 	int			x;
 	int			y;
 	char or ;
-	double		cam_height
 }				t_player;
-
-typedef  struct  s_line
-{
-	int  x; //the x coordinate of line relative to screen
-	int  y; //the current pixel index of the line (along y axis)
-	int  y0; //y start index of drawing texture
-	int  y1; //y end index of drawing texture
-	int  tex_x; //x coordinate of texture to draw
-	int  tex_y; //y coordinate of texture to draw
-} t_line;
-
-typedef struct s_image
-{
-	double line_height;
-	double line_length;
-	double bits_per_pixel;
-	
-}	t_image;
 
 typedef struct s_ray
 {
@@ -70,6 +52,7 @@ typedef struct s_ray
 	double dir_y;   // Direction Y du joueur
 	double plane_x; // Plan de la caméra X
 	double plane_y; // Plan de la caméra Y
+	double		camera_x;
 	double		move_speed;
 	double		rot_speed;
 	double		ray_dir_x;
@@ -80,6 +63,7 @@ typedef struct s_ray
 	double		side_dist_y;
 	double		wall_dist;
 	double		wall_x;
+	double		perp_wall_dist;
 	int			draw_start;
 	int			draw_end;
 	int			step_x;
@@ -88,7 +72,19 @@ typedef struct s_ray
 	int			map_y;
 	int			side;
 	int			hit;
+	int			line_height;
+	int			color;
+	int			img[SCREEN_HEIGHT * SCREEN_WIDTH];
 }				t_ray;
+
+typedef	struct s_img
+{
+	void    *img;
+    char    *addr;
+    int     bpp;
+    int     size_line;
+    int     endian;
+}				t_img;
 
 typedef struct s_window
 {
@@ -100,17 +96,16 @@ typedef struct s_window
 	char		*e_txr;
 	char		*f_color;
 	char		*c_color;
+	t_img		*main;
 }				t_window;
 
 typedef struct s_data
 {
+	char		**map;
 	t_window	*window;
 	t_list		*map_lst;
-	char		**map;
 	t_player	*player;
 	t_ray		*ray;
-	t_line		*line;
-	t_image		*image;
 }				t_data;
 
 bool			is_space(char c);
@@ -124,12 +119,13 @@ bool			check_identifier(char *buf, t_data *data);
 bool			pars_identifier(t_data *data);
 
 bool			check_map(t_data *data, t_list *map);
+char			**ft_convert_lst_to_tab(t_list *map);
 
 bool			flood_fill(char **map, int y, int x);
 
 void			display(t_data *data);
 
 void			dda(t_data *data);
-void 			init_ray(t_data *data);
+void			init_ray(t_data *data);
 
 #endif
