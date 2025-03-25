@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/24 17:07:33 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:04:42 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	display(t_data *data)
 		mlx_destroy_display(data->window->mlx);
 		free(data->window->mlx);
 		return ;
-	}
-	data->window->main = mlx_new_image(data->window->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	mlx_get_data_addr(data->window->main, data->window->main->bpp, data->window->main->size_line, data->window->main->endian);
+	} 
+	void	*img_ptr = mlx_new_image(data->window->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	mlx_get_data_addr(img_ptr, &data->window->main->bpp, &data->window->main->size_line, &data->window->main->endian);
 	dda(data);
 	mlx_put_image_to_window(data->window->mlx, data->window->win, data->ray->img, 0, 0);
 	mlx_hook(data->window->win, 2, 1L << 0, key_press, data);
