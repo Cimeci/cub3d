@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/24 15:04:00 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:47:00 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,35 @@ void	init_ray(t_data *data)
 
 void	init_data(t_data *data)
 {
+	ft_memset(data, 0, sizeof(t_data));
+	
 	data->window = malloc(sizeof(t_window));
+	if (!data->window)
+		return ;
 	data->map = NULL;
 	data->map_lst = NULL;
 	data->player = malloc(sizeof(t_player));
+	if (!data->player)
+	{
+		free(data->window);
+		return ;
+	}
 	data->ray = malloc(sizeof(t_ray));
+	if (!data->ray)
+	{
+		free(data->window);
+		free(data->player);
+		return ;
+	}
 	ft_memset(data->ray, 0, sizeof(t_ray));
+	data->window->main = malloc(sizeof(t_img));
+	if (!data->window->main)
+	{
+		free(data->window);
+		free(data->player);
+		free(data->ray);
+		return ;
+	}
+	ft_memset(data->window->main, 0, sizeof(t_img));
 	init_ray(data);
 }

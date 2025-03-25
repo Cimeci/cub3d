@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/24 17:07:10 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:21:48 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_ray
 	int			hit;
 	int			line_height;
 	int			color;
-	int			img[SCREEN_HEIGHT * SCREEN_WIDTH];
 }				t_ray;
 
 typedef	struct s_img
