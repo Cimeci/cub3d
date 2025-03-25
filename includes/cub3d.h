@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/25 10:21:48 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:21:46 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,28 @@
 # include "../lib/GNL/get_next_line.h"
 # include "../lib/libft/libft.h"
 # include "../lib/minilibx/mlx.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 # include <unistd.h>
 
 # define KEY_ESC 65307
-# define SCREEN_HEIGHT 1080
-# define SCREEN_WIDTH 1920
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_A 100
+# define KEY_D 97
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define SCREEN_HEIGHT 500
+# define SCREEN_WIDTH 700
+# define WALL_MARGIN 0.3
 
 enum			e_id
 {
@@ -35,6 +47,17 @@ enum			e_id
 	EA,
 	F,
 	C,
+};
+
+enum			e_key
+{
+	START,
+	W,
+	S,
+	A,
+	D,
+	RA,
+	LA,
 };
 
 typedef struct s_player
@@ -76,13 +99,13 @@ typedef struct s_ray
 	int			color;
 }				t_ray;
 
-typedef	struct s_img
+typedef struct s_img
 {
-	void    *img;
-    char    *addr;
-    int     bpp;
-    int     size_line;
-    int     endian;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
 }				t_img;
 
 typedef struct s_window
@@ -96,7 +119,16 @@ typedef struct s_window
 	char		*f_color;
 	char		*c_color;
 	t_img		*main;
+	bool		keypress[7];
 }				t_window;
+
+typedef struct s_fps
+{
+	time_t		start_time;
+	time_t		old_time;
+	time_t		time;
+	double		frame_time;
+}				t_fps;
 
 typedef struct s_data
 {
@@ -105,6 +137,7 @@ typedef struct s_data
 	t_list		*map_lst;
 	t_player	*player;
 	t_ray		*ray;
+	t_fps		*fps;
 }				t_data;
 
 bool			is_space(char c);
@@ -123,8 +156,13 @@ char			**ft_convert_lst_to_tab(t_list *map);
 bool			flood_fill(char **map, int y, int x);
 
 void			display(t_data *data);
+void			clear_window(t_data *data);
+int				ft_raycasting(t_data *data);
 
 void			dda(t_data *data);
 void			init_ray(t_data *data);
+
+time_t			get_time_in_ms(void);
+void			set_fps(t_data *data);
 
 #endif

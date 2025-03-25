@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/25 10:38:52 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:20:59 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	dda(t_data *data)
 	int line_length = img->size_line / 4;
 	// Taille d'une ligne en pixels (divisé par 4 car int = 4 bytes)
 
+	// printf("player: %f| %f\n", ray->pos_x, ray->pos_y);
 	for (int x = 0; x < SCREEN_WIDTH; x++)
 	{
 		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;

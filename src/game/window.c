@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/25 10:48:20 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:24:41 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,172 @@ int	close_window(t_data *data)
 	exit(0);
 }
 
-int	key_press(int keycode, t_data *data)
+int	key_press_move(int keycode, t_data *data)
 {
+	t_ray	*ray;
+	double	old_dirx;
+	double	old_planex;
+	double	tmp_posx;
+	double	tmp_posy;
+	double	perp_dir_x;
+	double	perp_dir_y;
+
+	ray = data->ray;
+	tmp_posx = ray->pos_x + WALL_MARGIN;
+	tmp_posy = ray->pos_y + WALL_MARGIN;
+	old_planex = ray->plane_x;
+	old_dirx = data->ray->dir_x;
 	if (keycode == KEY_ESC)
 		close_window(data);
-	printf("Touche pressée: %d\n", keycode);
+	else if (keycode == KEY_W)
+	{
+		tmp_posx = ray->pos_x + (ray->dir_x * ray->move_speed) + WALL_MARGIN;
+		tmp_posy = ray->pos_y + (ray->dir_y * ray->move_speed) + WALL_MARGIN;
+		if (data->map[(int)tmp_posx][(int)tmp_posy] != '1')
+		{
+			ray->pos_x += ray->dir_x * ray->move_speed;
+			ray->pos_y += ray->dir_y * ray->move_speed;
+		}
+		data->window->keypress[W] = true;
+	}
+	else if (keycode == KEY_S)
+	{
+		tmp_posx = ray->pos_x - (ray->dir_x * ray->move_speed);
+		tmp_posy = ray->pos_y - (ray->dir_y * ray->move_speed);
+		if (data->map[(int)tmp_posx][(int)tmp_posy] != '1')
+		{
+			ray->pos_x -= ray->dir_x * ray->move_speed;
+			ray->pos_y -= ray->dir_y * ray->move_speed;
+		}
+		data->window->keypress[S] = true;
+	}
+	// Correction pour les déplacements latéraux (A et D)
+	else if (keycode == KEY_D)
+	{
+		// Déplacement vers la droite (perpendiculaire à la direction)
+		perp_dir_x = -ray->dir_y;
+		perp_dir_y = ray->dir_x;
+		tmp_posx = ray->pos_x + (perp_dir_x * ray->move_speed);
+		tmp_posy = ray->pos_y + (perp_dir_y * ray->move_speed);
+		if (data->map[(int)tmp_posx][(int)ray->pos_y] != '1')
+			ray->pos_x += perp_dir_x * ray->move_speed;
+		if (data->map[(int)ray->pos_x][(int)tmp_posy] != '1')
+			ray->pos_y += perp_dir_y * ray->move_speed;
+		data->window->keypress[D] = true;
+	}
+	else if (keycode == KEY_A)
+	{
+		// Déplacement vers la gauche (perpendiculaire à la direction)
+		perp_dir_x = ray->dir_y;
+		perp_dir_y = -ray->dir_x;
+		tmp_posx = ray->pos_x + (perp_dir_x * ray->move_speed);
+		tmp_posy = ray->pos_y + (perp_dir_y * ray->move_speed);
+		if (data->map[(int)tmp_posx][(int)ray->pos_y] != '1')
+			ray->pos_x += perp_dir_x * ray->move_speed;
+		if (data->map[(int)ray->pos_x][(int)tmp_posy] != '1')
+			ray->pos_y += perp_dir_y * ray->move_speed;
+		data->window->keypress[A] = true;
+	}
+	else if (keycode == KEY_RIGHT)
+	{
+		ray->dir_x = ray->dir_x * cos(-ray->rot_speed) - ray->dir_y
+			* sin(-ray->rot_speed);
+		ray->dir_y = old_dirx * sin(-ray->rot_speed) + ray->dir_y
+			* cos(-ray->rot_speed);
+		ray->plane_x = ray->plane_x * cos(-ray->rot_speed) - ray->plane_y
+			* sin(-ray->rot_speed);
+		ray->plane_y = old_planex * sin(-ray->rot_speed) + ray->plane_y
+			* cos(-ray->rot_speed);
+		data->window->keypress[RA] = true;
+	}
+	else if (keycode == KEY_LEFT)
+	{
+		ray->dir_x = ray->dir_x * cos(ray->rot_speed) - ray->dir_y
+			* sin(ray->rot_speed);
+		ray->dir_y = old_dirx * sin(ray->rot_speed) + ray->dir_y
+			* cos(ray->rot_speed);
+		ray->plane_x = ray->plane_x * cos(ray->rot_speed) - ray->plane_y
+			* sin(ray->rot_speed);
+		ray->plane_y = old_planex * sin(ray->rot_speed) + ray->plane_y
+			* cos(ray->rot_speed);
+		data->window->keypress[LA] = true;
+	}
+	return (0);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode == KEY_W)
+		data->window->keypress[W] = false;
+	else if (keycode == KEY_S)
+		data->window->keypress[S] = false;
+	else if (keycode == KEY_D)
+		data->window->keypress[D] = false;
+	else if (keycode == KEY_A)
+		data->window->keypress[A] = false;
+	else if (keycode == KEY_RIGHT)
+		data->window->keypress[RA] = false;
+	else if (keycode == KEY_LEFT)
+		data->window->keypress[LA] = false;
+	return (0);
+}
+
+void	clear_window(t_data *data)
+{
+	t_img	*img;
+	int		*pixel_addr;
+	int		line_length;
+	int		pixel_index;
+
+	img = data->window->main;
+	pixel_addr = (int *)img->addr;
+	line_length = img->size_line / 4;
+	for (int x = 0; x < SCREEN_WIDTH; x++)
+	{
+		for (int y = 0; y < SCREEN_HEIGHT; y++)
+		{
+			pixel_index = y * line_length + x;
+			if (pixel_index >= 0 && pixel_index < SCREEN_HEIGHT * line_length)
+				pixel_addr[pixel_index] = 0xFFFFFF;
+		}
+	}
+}
+
+bool	is_moved(t_window *win)
+{
+	int	i;
+
+	if (win->keypress[0] == true)
+	{
+		win->keypress[0] = false;
+		return (true);
+	}
+	i = 1;
+	while (i < 8)
+	{
+		if (win->keypress[i] == true)
+		{
+			printf("keypress: %d\n", i);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+int	ft_raycasting(t_data *data)
+{
+	static int i = 0;
+	
+	if (is_moved(data->window))
+	{
+		set_fps(data);
+		printf("O PUTAIN: %d\n", i++);
+		clear_window(data);
+		dda(data);
+		mlx_put_image_to_window(data->window->mlx, data->window->win,
+			data->window->main->img, 0, 0);
+	}
 	return (0);
 }
 
@@ -58,12 +219,11 @@ void	display(t_data *data)
 		return ;
 	}
 	data->window->main->addr = mlx_get_data_addr(data->window->main->img,
-        &data->window->main->bpp, &data->window->main->size_line, &data->window->main->endian);
-
-    dda(data);
-    mlx_put_image_to_window(data->window->mlx, data->window->win, data->window->main->img, 0, 0);
-	
-    mlx_hook(data->window->win, 2, 1L<<0, key_press, data);
-    mlx_hook(data->window->win, 17, 1L<<17, close_window, data);
-    mlx_loop(data->window->mlx);
+			&data->window->main->bpp, &data->window->main->size_line,
+			&data->window->main->endian);
+	mlx_hook(data->window->win, 17, 1L << 17, close_window, data);
+	mlx_hook(data->window->win, KeyPress, KeyPressMask, key_press_move, data);
+	mlx_hook(data->window->win, KeyRelease, KeyReleaseMask, key_release, data);
+	mlx_loop_hook(data->window->mlx, ft_raycasting, data);
+	mlx_loop(data->window->mlx);
 }
