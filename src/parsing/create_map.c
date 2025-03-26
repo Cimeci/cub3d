@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/24 15:21:19 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:04:32 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ bool	check_map(t_data *data, t_list *map)
 	int		k;
 
 	tmp = map;
-	printf("NO: %s\nSO: %s\nWE: %s\nEA: %s\nF: %s\nC: %s\n",
+	printf("NO: %s\nSO: %s\nWE: %s\nEA: %s\nF: %d\nC: %d\n",
 		data->window->n_txr, data->window->s_txr, data->window->e_txr,
 		data->window->w_txr, data->window->f_color, data->window->c_color);
 	printf("-----------------\n");

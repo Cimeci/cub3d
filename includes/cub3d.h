@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/25 19:21:46 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 10:23:49 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
-# define SCREEN_HEIGHT 500
-# define SCREEN_WIDTH 700
+# define SCREEN_HEIGHT 800
+# define SCREEN_WIDTH 1000
 # define WALL_MARGIN 0.3
 
 enum			e_id
@@ -101,6 +101,7 @@ typedef struct s_ray
 
 typedef struct s_img
 {
+	int			*pixel_addr;
 	void		*img;
 	char		*addr;
 	int			bpp;
@@ -116,8 +117,8 @@ typedef struct s_window
 	char		*s_txr;
 	char		*w_txr;
 	char		*e_txr;
-	char		*f_color;
-	char		*c_color;
+	int			f_color;
+	int			c_color;
 	t_img		*main;
 	bool		keypress[7];
 }				t_window;

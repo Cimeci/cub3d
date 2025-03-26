@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/25 19:24:41 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:32:23 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int	key_press_move(int keycode, t_data *data)
 	double	perp_dir_y;
 
 	ray = data->ray;
-	tmp_posx = ray->pos_x + WALL_MARGIN;
-	tmp_posy = ray->pos_y + WALL_MARGIN;
+	tmp_posx = ray->pos_x;
+	tmp_posy = ray->pos_y;
 	old_planex = ray->plane_x;
 	old_dirx = data->ray->dir_x;
 	if (keycode == KEY_ESC)
 		close_window(data);
 	else if (keycode == KEY_W)
 	{
-		tmp_posx = ray->pos_x + (ray->dir_x * ray->move_speed) + WALL_MARGIN;
-		tmp_posy = ray->pos_y + (ray->dir_y * ray->move_speed) + WALL_MARGIN;
+		tmp_posx = ray->pos_x + (ray->dir_x * ray->move_speed);
+		tmp_posy = ray->pos_y + (ray->dir_y * ray->move_speed);
 		if (data->map[(int)tmp_posx][(int)tmp_posy] != '1')
 		{
 			ray->pos_x += ray->dir_x * ray->move_speed;
@@ -66,10 +66,8 @@ int	key_press_move(int keycode, t_data *data)
 		}
 		data->window->keypress[S] = true;
 	}
-	// Correction pour les déplacements latéraux (A et D)
 	else if (keycode == KEY_D)
 	{
-		// Déplacement vers la droite (perpendiculaire à la direction)
 		perp_dir_x = -ray->dir_y;
 		perp_dir_y = ray->dir_x;
 		tmp_posx = ray->pos_x + (perp_dir_x * ray->move_speed);
@@ -82,7 +80,6 @@ int	key_press_move(int keycode, t_data *data)
 	}
 	else if (keycode == KEY_A)
 	{
-		// Déplacement vers la gauche (perpendiculaire à la direction)
 		perp_dir_x = ray->dir_y;
 		perp_dir_y = -ray->dir_x;
 		tmp_posx = ray->pos_x + (perp_dir_x * ray->move_speed);
@@ -152,8 +149,10 @@ void	clear_window(t_data *data)
 		for (int y = 0; y < SCREEN_HEIGHT; y++)
 		{
 			pixel_index = y * line_length + x;
-			if (pixel_index >= 0 && pixel_index < SCREEN_HEIGHT * line_length)
-				pixel_addr[pixel_index] = 0xFFFFFF;
+			if (pixel_index >= 0 && pixel_index < (SCREEN_HEIGHT * line_length / 2))
+				pixel_addr[pixel_index] = data->window->c_color;
+			else
+				pixel_addr[pixel_index] = data->window->f_color;
 		}
 	}
 }
@@ -168,11 +167,11 @@ bool	is_moved(t_window *win)
 		return (true);
 	}
 	i = 1;
-	while (i < 8)
+	while (i < 7)
 	{
 		if (win->keypress[i] == true)
 		{
-			printf("keypress: %d\n", i);
+			// printf("keypress: %d\n", i);
 			return (true);
 		}
 		i++;
@@ -182,12 +181,9 @@ bool	is_moved(t_window *win)
 
 int	ft_raycasting(t_data *data)
 {
-	static int i = 0;
-	
 	if (is_moved(data->window))
 	{
 		set_fps(data);
-		printf("O PUTAIN: %d\n", i++);
 		clear_window(data);
 		dda(data);
 		mlx_put_image_to_window(data->window->mlx, data->window->win,

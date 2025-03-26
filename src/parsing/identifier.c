@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/21 13:27:04 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:13:32 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ bool	check_colors(char *str, int it)
 static void	assign_texture(int id, char *buf, t_data *data)
 {
 	char	*path;
+	char	**tmp;
+	int		r;
+	int		g;
+	int		b;
+	int		color;
 
 	path = take_path(buf);
 	if (!path)
@@ -87,17 +92,24 @@ static void	assign_texture(int id, char *buf, t_data *data)
 		data->window->w_txr = path;
 	else if (id == EA)
 		data->window->e_txr = path;
-	else if (id == F || id == C)
+	if (id == F || id == C)
 	{
 		if (!check_colors(path, 0))
 		{
 			free(path);
-			print_error_exit("RGB color is invalid", data);
+			print_error_exit("Invalid RGB", data);
 		}
+		tmp = ft_split(path, ',');
+		r = ft_atoi(tmp[0]);
+		g = ft_atoi(tmp[1]);
+		b = ft_atoi(tmp[2]);
+		color = (r << 16) | (g << 8) | b;
+		printf("%d\n", color);
 		if (id == F)
-			data->window->f_color = path;
+			data->window->f_color = color;
 		else if (id == C)
-			data->window->c_color = path;
+			data->window->c_color = color;
+		ft_freetab(tmp);
 	}
 }
 

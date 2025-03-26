@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:10 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/21 13:33:03 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:05:01 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ void	free_all(t_data *data)
 		free(data->window->w_txr);
 	if (data->window->e_txr)
 		free(data->window->e_txr);
-	if (data->window->f_color)
-		free(data->window->f_color);
-	if (data->window->c_color)
-		free(data->window->c_color);
 	if (data->map)
 		ft_freetab(data->map);
 	if (data->player)
