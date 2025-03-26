@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 12:53:16 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:30:09 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	compare_identifier(char *id, int len)
 {
 	if (len > 2)
-		return (0);
+		return (6);
 	if (!ft_strncmp(id, "NO", len))
 		return (NO);
 	else if (!ft_strncmp(id, "SO", len))
@@ -127,7 +127,7 @@ bool	check_identifier(char *buf, t_data *data)
 	while (buf[i + len] && !is_space(buf[i + len]))
 		len++;
 	id = compare_identifier(buf + i, len);
-	if (!id)
+	if (id == 6)
 		return (false);
 	i += len;
 	while (buf[i] && is_space(buf[i]))

@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 14:13:30 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:39:57 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
-// # define SCREEN_HEIGHT 1080
-// # define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 500
-# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 1080
+# define SCREEN_WIDTH 1920
+// # define SCREEN_HEIGHT 500
+// # define SCREEN_WIDTH 800
 # define WALL_MARGIN 0.3
 
 enum			e_id
 {
-	NO = 1,
+	NO,
 	SO,
 	WE,
 	EA,
@@ -103,6 +103,8 @@ typedef struct s_ray
 
 typedef struct s_img
 {
+	void		*txt[5];
+	char		*addrtxt[5];
 	int			*pixel_addr;
 	void		*img;
 	char		*addr;
@@ -163,9 +165,23 @@ char			**ft_convert_lst_to_tab(t_list *map);
 
 bool			flood_fill(char **map, int y, int x);
 
+// handle_key.c
+
+int				close_window(t_data *data);
+int				key_press_move(int keycode, t_data *data);
+int				key_release(int keycode, t_data *data);
+
+// move.c
+
+void			moveplayer(t_data *data);
+
+// window.c
+
 void			display(t_data *data);
 void			clear_window(t_data *data);
 int				ft_raycasting(t_data *data);
+
+// raycating.c
 
 void			dda(t_data *data);
 

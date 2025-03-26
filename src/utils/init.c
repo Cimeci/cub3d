@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 14:03:32 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:07:40 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,34 @@
 
 void	init_ray(t_data *data)
 {
-	data->ray->dir_x = -1;
-	data->ray->dir_y = 0;
-	data->ray->plane_x = 0;
-	data->ray->plane_y = 0.66;
-	data->ray->move_speed =  0.5;
-	data->ray->rot_speed = 0.1;
+	if (data->player->or == 'N')
+	{
+		data->ray->dir_x = 0;
+		data->ray->dir_y = -1;
+		data->ray->plane_x = 0.66;
+		data->ray->plane_y = 0;
+	}
+	else if (data->player->or == 'S')
+	{
+		data->ray->dir_x = 0;
+		data->ray->dir_y = 1;
+		data->ray->plane_x = 0.66;
+		data->ray->plane_y = 0;
+	}
+	else if (data->player->or == 'E')
+	{
+		data->ray->dir_x = 1;
+		data->ray->dir_y = 0;
+		data->ray->plane_x = 0;
+		data->ray->plane_y = 0.66;
+	}
+	else if (data->player->or == 'W')
+	{
+		data->ray->dir_x = -1;
+		data->ray->dir_y = 0;
+		data->ray->plane_x = 0;
+		data->ray->plane_y = -0.66;
+	}
 }
 
 void	init_fps(t_fps *fps)

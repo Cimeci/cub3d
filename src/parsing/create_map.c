@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 13:56:39 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:40:56 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	format_map(t_data *data, t_list *map)
 		}
 		tmp = tmp->next;
 	}
-	printf("width: %d| height: %d\n", data->map_width, data->map_height);
+	// printf("width: %d| height: %d\n", data->map_width, data->map_height);
 }
 
 bool	check_map(t_data *data, t_list *map)
@@ -150,8 +150,8 @@ bool	check_map(t_data *data, t_list *map)
 				data->ray->pos_x = j;
 				data->ray->pos_y = i;
 				data->player->or = tmp->content[i];
-				printf("player: x = %d| y = %d| or = %c\n", data->player->x,
-					data->player->y, data->player->or);
+				// printf("player: x = %d| y = %d| or = %c\n", data->player->x,
+					// data->player->y, data->player->or);
 			}
 			i++;
 		}
@@ -184,6 +184,6 @@ bool	check_map(t_data *data, t_list *map)
 	printf("-----------------\n");
 	while (newmap[k])
 		printf("%s\n", newmap[k++]);
-	ft_freetab(newmap); // garder newmap ?
+	ft_freetab(newmap);
 	return (true);
 }
