@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 11:29:41 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:57:51 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ void	ray_projection(t_data *data, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
+		if (ray->map_x < 0 || ray->map_x >= data->map_height || 
+            ray->map_y < 0 || ray->map_y >= data->map_width)
+		{
+            ray->hit = 1;
+            break;
+        }
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_dist_x;

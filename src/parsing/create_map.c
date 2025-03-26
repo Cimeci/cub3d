@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 11:04:32 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:56:39 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,46 @@ char	**ft_convert_lst_to_tab(t_list *map)
 	return (table);
 }
 
+void	format_map(t_data *data, t_list *map)
+{
+	t_list	*tmp;
+	char	*add;
+	char	*line;
+	int		i;
+
+	tmp = map;
+	while (tmp)
+	{
+		if (tmp->content && data->map_width < (int)ft_strlen(tmp->content))
+			data->map_width = ft_strlen(tmp->content);
+		data->map_height++;
+		tmp = tmp->next;
+	}
+	tmp = map;
+	while (tmp)
+	{
+		if ((int)ft_strlen(tmp->content) < data->map_width)
+		{
+			add = malloc(sizeof(char) * (data->map_width - (int)ft_strlen(tmp->content) + 1));
+			if (!add)
+				return ;
+			i = 0;
+			while (i < (data->map_width - (int)ft_strlen(tmp->content)))
+			{
+				add[i] = '0';
+				i++;
+			}
+			add[i] = '\0';
+			line = ft_strjoin(tmp->content, add);
+			free(add);
+			free(tmp->content);
+			tmp->content = line;
+		}
+		tmp = tmp->next;
+	}
+	printf("width: %d| height: %d\n", data->map_width, data->map_height);
+}
+
 bool	check_map(t_data *data, t_list *map)
 {
 	int		i;
@@ -105,7 +145,6 @@ bool	check_map(t_data *data, t_list *map)
 			else if (tmp->content[i] == 'N' || tmp->content[i] == 'S'
 				|| tmp->content[i] == 'E' || tmp->content[i] == 'W')
 			{
-				printf("line player: |%s|\n", tmp->content);
 				data->player->y = j;
 				data->player->x = i;
 				data->ray->pos_x = j;
@@ -120,7 +159,8 @@ bool	check_map(t_data *data, t_list *map)
 		tmp = tmp->next;
 	}
 	replace_spaces(data->map_lst);
-	newmap = ft_convert_lst_to_tab(map);
+	format_map(data, data->map_lst);
+	newmap = ft_convert_lst_to_tab(data->map_lst);
 	if (!newmap)
 		print_error_exit("Newmap clone", data);
 	if (!check_nb_player(data->map_lst))

@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:10 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 11:05:01 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:22:36 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	free_all(t_data *data)
 		free_list(&data->map_lst);
 	if (data->window)
 		free(data->window);
+	if (data->ray)
+		free(data->ray);
 }
 
 void	print_error_exit(char *str, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 10:23:49 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:13:30 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
-# define SCREEN_HEIGHT 800
-# define SCREEN_WIDTH 1000
+// # define SCREEN_HEIGHT 1080
+// # define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 500
+# define SCREEN_WIDTH 800
 # define WALL_MARGIN 0.3
 
 enum			e_id
@@ -133,6 +135,8 @@ typedef struct s_fps
 
 typedef struct s_data
 {
+	int			map_width;
+	int			map_height;
 	char		**map;
 	t_window	*window;
 	t_list		*map_lst;
@@ -145,8 +149,11 @@ bool			is_space(char c);
 bool			parsing(char *file, t_data *data);
 
 void			print_error_exit(char *str, t_data *data);
-void			init_data(t_data *data);
 void			free_all(t_data *data);
+
+void			init_data(t_data *data);
+void			init_ray(t_data *data);
+void			init_game(t_data *data);
 
 bool			check_identifier(char *buf, t_data *data);
 bool			pars_identifier(t_data *data);
@@ -161,7 +168,6 @@ void			clear_window(t_data *data);
 int				ft_raycasting(t_data *data);
 
 void			dda(t_data *data);
-void			init_ray(t_data *data);
 
 time_t			get_time_in_ms(void);
 void			set_fps(t_data *data);

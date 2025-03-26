@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 11:32:23 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:19:45 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,8 @@ void	clear_window(t_data *data)
 		for (int y = 0; y < SCREEN_HEIGHT; y++)
 		{
 			pixel_index = y * line_length + x;
-			if (pixel_index >= 0 && pixel_index < (SCREEN_HEIGHT * line_length / 2))
+			if (pixel_index >= 0 && pixel_index < (SCREEN_HEIGHT * line_length
+					/ 2))
 				pixel_addr[pixel_index] = data->window->c_color;
 			else
 				pixel_addr[pixel_index] = data->window->f_color;
@@ -188,6 +189,8 @@ int	ft_raycasting(t_data *data)
 		dda(data);
 		mlx_put_image_to_window(data->window->mlx, data->window->win,
 			data->window->main->img, 0, 0);
+		mlx_string_put(data->window->mlx, data->window->win, 10, 10, 0xffffff, "fps: ");
+		mlx_string_put(data->window->mlx, data->window->win, 40, 12, 0xffffff, ft_itoa((int)ceil(1.0 / data->fps->frame_time)));
 	}
 	return (0);
 }

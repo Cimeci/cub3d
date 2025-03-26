@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:13:06 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/25 10:04:30 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:58:13 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	init_data(&data);
-	parsing(argv[1], &data);\
+	parsing(argv[1], &data);
+	init_game(&data);
 	display(&data);
 	free_all(&data);
 	return (0);

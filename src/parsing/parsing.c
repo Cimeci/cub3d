@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/24 14:45:25 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:03:54 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,7 @@ bool	parsing(char *file, t_data *data)
 	extract_file(file, data);
 	check_map(data, data->map_lst);
 	data->map = ft_convert_lst_to_tab(data->map_lst);
+	if (!data->map || !data->map[0])
+		print_error_exit("Invalid assignation map", NULL);
 	return (true);
 }

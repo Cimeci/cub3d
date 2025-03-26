@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/25 19:03:58 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:03:32 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	init_ray(t_data *data)
 	data->ray->dir_y = 0;
 	data->ray->plane_x = 0;
 	data->ray->plane_y = 0.66;
+	data->ray->move_speed =  0.5;
+	data->ray->rot_speed = 0.1;
 }
 
 void	init_fps(t_fps *fps)
@@ -28,29 +30,8 @@ void	init_fps(t_fps *fps)
 	fps->frame_time = 0;
 }
 
-void	init_data(t_data *data)
+void	init_game(t_data *data)
 {
-	ft_memset(data, 0, sizeof(t_data));
-	
-	data->window = malloc(sizeof(t_window));
-	if (!data->window)
-		return ;
-	data->map = NULL;
-	data->map_lst = NULL;
-	data->player = malloc(sizeof(t_player));
-	if (!data->player)
-	{
-		free(data->window);
-		return ;
-	}
-	data->ray = malloc(sizeof(t_ray));
-	if (!data->ray)
-	{
-		free(data->window);
-		free(data->player);
-		return ;
-	}
-	ft_memset(data->ray, 0, sizeof(t_ray));
 	data->window->main = malloc(sizeof(t_img));
 	if (!data->window->main)
 	{
@@ -73,4 +54,34 @@ void	init_data(t_data *data)
 	init_fps(data->fps);
 	ft_memset(data->window->keypress, 0, 7);
 	data->window->keypress[0] = true;
+}
+
+void	init_data(t_data *data)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	data->map = NULL;
+	data->map_lst = NULL;
+	data->player = malloc(sizeof(t_player));
+	if (!data->player)
+	{
+		free(data);
+		return ;
+	}
+	data->window = malloc(sizeof(t_window));
+	if (!data->window)
+	{
+		free(data);
+		free(data->player);
+		return ;
+	}
+	ft_memset(data->window, 0, sizeof(t_window));
+	data->ray = malloc(sizeof(t_ray));
+	if (!data->ray)
+	{
+		free(data);
+		free(data->window);
+		free(data->player);
+		return ;
+	}
+	ft_memset(data->ray, 0, sizeof(t_ray));
 }
