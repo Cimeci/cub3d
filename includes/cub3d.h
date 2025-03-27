@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 18:39:57 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:49:20 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
-# define SCREEN_HEIGHT 1080
-# define SCREEN_WIDTH 1920
-// # define SCREEN_HEIGHT 500
-// # define SCREEN_WIDTH 800
+// # define SCREEN_HEIGHT 1080
+// # define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 500
+# define SCREEN_WIDTH 800
 # define WALL_MARGIN 0.3
 
 enum			e_id

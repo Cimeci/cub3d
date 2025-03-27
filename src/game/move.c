@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:53:09 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 17:20:05 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:49:43 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ static void	move_horizontals(t_data *data, t_ray *ray, int utils)
 
 	if (utils == 1)
 	{
-		tmp_posx = ray->pos_x + (ray->dir_x
-				* ray->move_speed);
-		tmp_posy = ray->pos_y + (ray->dir_y
-				* ray->move_speed);
+		tmp_posx = ray->pos_x + (ray->dir_x * ray->move_speed);
+		tmp_posy = ray->pos_y + (ray->dir_y * ray->move_speed);
 		if (data->map[(int)tmp_posx][(int)tmp_posy] != '1')
 		{
 			ray->pos_x += ray->dir_x * ray->move_speed;
@@ -70,7 +68,7 @@ static void	move_laterals(t_data *data, t_ray *ray, int utils)
 
 static void	rotate(t_data *data, t_ray *ray, int utils)
 {
-    double	old_dirx;
+	double	old_dirx;
 	double	old_planex;
 
 	old_planex = ray->plane_x;
@@ -99,9 +97,9 @@ static void	rotate(t_data *data, t_ray *ray, int utils)
 
 void	moveplayer(t_data *data)
 {
-    t_ray *ray;
+	t_ray	*ray;
 
-    ray = data->ray;
+	ray = data->ray;
 	if (data->window->keypress[W] == true)
 		move_horizontals(data, ray, 1);
 	if (data->window->keypress[S] == true)
@@ -111,7 +109,7 @@ void	moveplayer(t_data *data)
 	if (data->window->keypress[D] == true)
 		move_laterals(data, ray, 0);
 	if (data->window->keypress[LA] == true)
-        rotate(data, ray, 1);
+		rotate(data, ray, 1);
 	if (data->window->keypress[RA] == true)
-        rotate(data, ray, 0);
+		rotate(data, ray, 0);
 }
