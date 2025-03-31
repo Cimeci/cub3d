@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/27 18:49:20 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:00:30 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,11 @@ typedef struct s_ray
 	int			side;
 	int			hit;
 	int			line_height;
-	int			color;
+	int			tex_x;
 }				t_ray;
 
 typedef struct s_img
 {
-	void		*txt[5];
-	char		*addrtxt[5];
 	int			*pixel_addr;
 	void		*img;
 	char		*addr;
@@ -124,6 +122,7 @@ typedef struct s_window
 	int			f_color;
 	int			c_color;
 	t_img		*main;
+	t_img		**txr;
 	bool		keypress[7];
 }				t_window;
 
@@ -178,7 +177,7 @@ void			moveplayer(t_data *data);
 // window.c
 
 void			display(t_data *data);
-void			clear_window(t_data *data);
+void			draw_bg(t_data *data);
 int				ft_raycasting(t_data *data);
 
 // raycating.c

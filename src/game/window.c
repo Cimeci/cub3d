@@ -6,13 +6,13 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/27 18:49:53 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:40:30 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	clear_window(t_data *data)
+void	draw_bg(t_data *data)
 {
 	t_img	*img;
 	int		*pixel_addr;
@@ -61,7 +61,7 @@ int	ft_raycasting(t_data *data)
 	{
 		moveplayer(data);
 		set_fps(data);
-		clear_window(data);
+		draw_bg(data);
 		dda(data);
 		mlx_put_image_to_window(data->window->mlx, data->window->win,
 			data->window->main->img, 0, 0);

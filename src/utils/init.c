@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 18:07:40 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:00:23 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,11 @@ void	init_fps(t_fps *fps)
 
 void	init_game(t_data *data)
 {
+	data->window->txr = malloc(sizeof(t_img *) * 4);
 	data->window->main = malloc(sizeof(t_img));
-	if (!data->window->main)
-	{
-		free(data->window);
-		free(data->player);
-		free(data->ray);
-		return ;
-	}
+	ft_memset(data->window->txr, 0, sizeof(t_img *));
 	ft_memset(data->window->main, 0, sizeof(t_img));
 	data->fps = malloc(sizeof(t_fps));
-	if (!data->fps)
-	{
-		free(data->window->main);
-		free(data->window);
-		free(data->player);
-		free(data->ray);
-		return ;
-	}
 	init_ray(data);
 	init_fps(data->fps);
 	ft_memset(data->window->keypress, 0, 7);

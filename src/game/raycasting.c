@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 13:57:51 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:54:25 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,39 @@
 
 void	draw(t_data *data, t_ray *ray, int line_length, int x)
 {
-	int	color;
+	int	texture;
+	int color;
 	int	pixel_index;
+	double	step;
+	double	tex_pos;
+	int		tex_y;
 	int	y;
 
 	y = ray->draw_start;
-	if (data->map[ray->map_x][ray->map_y] == '1')
-		color = 0xFF0000;
+	if (ray->side == 0)
+	{
+		if (ray->step_x > 0)
+			texture = EA;
+		else
+			texture = WE;
+	}
 	else
-		color = 0xFFFFFF;
-	if (ray->side == 1)
-		color = color / 2;
+	{
+		if (ray->step_y > 0)
+			texture = NO;
+		else
+			texture = SO;
+	}
+	step = 1.0 * 64 / ray->line_height;
+	tex_pos = (ray->draw_start - SCREEN_HEIGHT / 2 + ray->line_height / 2) * step;
 	while (y < ray->draw_end)
 	{
+		tex_y = (int)tex_pos;
+		tex_pos += step;
+		int *texture_data = (int *)data->window->txr[texture].addr;
+		dprintf(2, "%p\n", texture_data);
+		dprintf(2, "%s\n", data->window->txr[texture].addr);
+		color = texture_data[64 * tex_y + ray->tex_x];
 		pixel_index = y * line_length + x;
 		if (pixel_index >= 0 && pixel_index < SCREEN_HEIGHT * line_length)
 			data->window->main->pixel_addr[pixel_index] = color;
@@ -51,6 +71,17 @@ void	handle_wall(t_ray *ray)
 	ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	if (ray->draw_end >= SCREEN_HEIGHT)
 		ray->draw_end = SCREEN_HEIGHT - 1;
+	if (ray->side == 0)
+		ray->wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+	else
+		ray->wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
+	ray->wall_x -= floor((ray->wall_x));
+	ray->tex_x = (int)(ray->wall_x * (double)64);
+	if (ray->side == 0 && ray->ray_dir_x > 0)
+		ray->tex_x = 64 - ray->tex_x - 1;
+	if (ray->side == 1 && ray->ray_dir_x < 0)
+		ray->tex_x = 64 - ray->tex_x - 1;
+	
 }
 
 void	ray_projection(t_data *data, t_ray *ray)

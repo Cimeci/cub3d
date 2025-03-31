@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 17:53:31 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 18:50:01 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:03:31 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ void	init_texture(t_data *data)
 	int			height;
 
 	win = data->window;
-	img = data->window->main;
+	img = data->window->txr;
 	// txt
-	img->txt[NO] = mlx_xpm_file_to_image(win->mlx, win->n_txr, &width, &height);
-	img->txt[SO] = mlx_xpm_file_to_image(win->mlx, win->s_txr, &width, &height);
-	img->txt[WE] = mlx_xpm_file_to_image(win->mlx, win->w_txr, &width, &height);
-	img->txt[EA] = mlx_xpm_file_to_image(win->mlx, win->e_txr, &width, &height);
+	img[NO]->img = mlx_xpm_file_to_image(win->mlx, win->n_txr, &width, &height);
+	img[SO].img = mlx_xpm_file_to_image(win->mlx, win->s_txr, &width, &height);
+	img[WE].img = mlx_xpm_file_to_image(win->mlx, win->w_txr, &width, &height);
+	img[EA].img = mlx_xpm_file_to_image(win->mlx, win->e_txr, &width, &height);
 
-	if (!img->txt[NO] || !img->txt[SO] || !img->txt[WE] || !img->txt[EA])
+	if (!img[NO].img || !img[SO].img || !img[WE].img || !img[EA].img)
 		print_error_exit("Failed to load textures", data);
 	// addr
-	img->addrtxt[NO] = mlx_get_data_addr(img->txt[NO], &img->bpp, &img->size_line, &img->endian);
-    img->addrtxt[SO] = mlx_get_data_addr(img->txt[SO], &img->bpp, &img->size_line, &img->endian);
-    img->addrtxt[WE] = mlx_get_data_addr(img->txt[WE], &img->bpp, &img->size_line, &img->endian);
-    img->addrtxt[EA] = mlx_get_data_addr(img->txt[EA], &img->bpp, &img->size_line, &img->endian);
-	img->txt[4] = NULL;
-	img->addrtxt[4] = NULL;
+	img[NO].addr = mlx_get_data_addr(img[NO]->img, img[NO].bpp, img[NO].size_line, img[NO].endian);
+    img[SO].addr = mlx_get_data_addr(img[SO]->img, img[SO].bpp, img[SO].size_line, img[SO].endian);
+    img[WE].addr = mlx_get_data_addr(img[WE].img, img[WE].bpp, img[WE].size_line, img[WE].endian);
+    img[EA].addr = mlx_get_data_addr(img[EA].img, img[EA].bpp, img[EA].size_line, img[EA].endian);
+	img[4].img = NULL;
+	img[4].addr= NULL;
 }
