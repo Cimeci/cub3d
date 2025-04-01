@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 17:40:56 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:18:57 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ bool	check_map(t_data *data, t_list *map)
 				&& tmp->content[i] != ' ' && tmp->content[i] != 'N'
 				&& tmp->content[i] != 'S' && tmp->content[i] != 'E'
 				&& tmp->content[i] != 'W')
-				return (false);
+				print_error_exit("Invalid map", data);
 			else if (tmp->content[i] == 'N' || tmp->content[i] == 'S'
 				|| tmp->content[i] == 'E' || tmp->content[i] == 'W')
 			{
@@ -150,8 +150,6 @@ bool	check_map(t_data *data, t_list *map)
 				data->ray->pos_x = j;
 				data->ray->pos_y = i;
 				data->player->or = tmp->content[i];
-				// printf("player: x = %d| y = %d| or = %c\n", data->player->x,
-					// data->player->y, data->player->or);
 			}
 			i++;
 		}

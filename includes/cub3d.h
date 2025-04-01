@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/31 18:00:30 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 09:32:12 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct s_window
 	int			f_color;
 	int			c_color;
 	t_img		*main;
-	t_img		**txr;
+	t_img		*txr;
 	bool		keypress[7];
 }				t_window;
 
@@ -186,5 +186,6 @@ void			dda(t_data *data);
 
 time_t			get_time_in_ms(void);
 void			set_fps(t_data *data);
+void			init_texture(t_data *data);
 
 #endif

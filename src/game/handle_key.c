@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 17:49:13 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 17:49:56 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:25:11 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	close_window(t_data *data)
 		mlx_destroy_display(data->window->mlx);
 		free(data->window->mlx);
 	}
+	free_all(data);
 	exit(0);
 }
 

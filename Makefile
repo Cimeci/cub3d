@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
+#    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/03/26 18:06:06 by inowak--         ###   ########.fr        #
+#    Updated: 2025/04/01 09:32:46 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC = src/main.c \
 	  src/utils/time.c\
 	  src/game/move.c\
 	  src/game/handle_key.c\
+	  src/game/handle_texture.c
 
 GNL_SRC = lib/GNL/get_next_line.c \
 	  lib/GNL/get_next_line_utils.c

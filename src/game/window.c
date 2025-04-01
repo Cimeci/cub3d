@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/31 13:40:30 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 09:53:42 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	draw_bg(t_data *data)
 bool	is_moved(t_window *win)
 {
 	int	i;
-
 	if (win->keypress[0] == true)
 	{
 		win->keypress[0] = false;
@@ -78,6 +77,7 @@ void	display(t_data *data)
 	data->window->mlx = mlx_init();
 	if (!data->window->mlx || !data->window->main)
 		return ;
+	init_texture(data);
 	data->window->win = mlx_new_window(data->window->mlx, SCREEN_WIDTH,
 			SCREEN_HEIGHT, "Cub3D");
 	if (!data->window->win)

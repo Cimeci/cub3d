@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/26 18:30:09 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:23:15 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static void	assign_texture(int id, char *buf, t_data *data)
 			data->window->f_color = color;
 		else if (id == C)
 			data->window->c_color = color;
+		free(path);
 		ft_freetab(tmp);
 	}
 }

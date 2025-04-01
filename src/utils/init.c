@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/31 18:00:23 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:14:28 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	init_ray(t_data *data)
 {
-	if (data->player->or == 'N')
+	if (data->player->or == 'E')
 	{
 		data->ray->dir_x = 0;
 		data->ray->dir_y = -1;
 		data->ray->plane_x = 0.66;
 		data->ray->plane_y = 0;
 	}
-	else if (data->player->or == 'S')
+	else if (data->player->or == 'W')
 	{
 		data->ray->dir_x = 0;
 		data->ray->dir_y = 1;
-		data->ray->plane_x = 0.66;
+		data->ray->plane_x = -0.66;
 		data->ray->plane_y = 0;
 	}
-	else if (data->player->or == 'E')
+	else if (data->player->or == 'S')
 	{
 		data->ray->dir_x = 1;
 		data->ray->dir_y = 0;
 		data->ray->plane_x = 0;
 		data->ray->plane_y = 0.66;
 	}
-	else if (data->player->or == 'W')
+	else if (data->player->or == 'N')
 	{
 		data->ray->dir_x = -1;
 		data->ray->dir_y = 0;
@@ -54,9 +54,9 @@ void	init_fps(t_fps *fps)
 
 void	init_game(t_data *data)
 {
-	data->window->txr = malloc(sizeof(t_img *) * 4);
+	data->window->txr = malloc(sizeof(t_img) * 5);
+	ft_memset(data->window->txr, 0, sizeof(t_img) * 4);
 	data->window->main = malloc(sizeof(t_img));
-	ft_memset(data->window->txr, 0, sizeof(t_img *));
 	ft_memset(data->window->main, 0, sizeof(t_img));
 	data->fps = malloc(sizeof(t_fps));
 	init_ray(data);

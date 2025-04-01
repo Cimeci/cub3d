@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:10 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 13:22:36 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:32:05 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void	free_list(t_list **head)
 	*head = NULL;
 }
 
+void	free_txr(t_img *txr)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(txr[i].img);
+		i++;
+	}
+}
+
 void	free_all(t_data *data)
 {
 	if (data->window->n_txr)
@@ -46,6 +58,11 @@ void	free_all(t_data *data)
 		free(data->player);
 	if (data->map_lst)
 		free_list(&data->map_lst);
+	if (data->window->txr)
+	{
+		free_txr(data->window->txr);
+		free(data->window->txr);
+	}
 	if (data->window)
 		free(data->window);
 	if (data->ray)
