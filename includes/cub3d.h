@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/01 09:32:12 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:52:23 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,21 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
+# define KEY_SHIFT 65505
+# define KEY_C 99
+
 // # define SCREEN_HEIGHT 1080
 // # define SCREEN_WIDTH 1920
+// # define SCREEN_HEIGHT 480
+// # define SCREEN_WIDTH 920
 # define SCREEN_HEIGHT 500
 # define SCREEN_WIDTH 800
 # define WALL_MARGIN 0.3
 
 enum			e_id
 {
-	NO,
 	SO,
+	NO,
 	WE,
 	EA,
 	F,
@@ -60,6 +65,7 @@ enum			e_key
 	D,
 	RA,
 	LA,
+	SHIFT,
 };
 
 typedef struct s_player
@@ -123,14 +129,14 @@ typedef struct s_window
 	int			c_color;
 	t_img		*main;
 	t_img		*txr;
-	bool		keypress[7];
+	bool		keypress[8];
 }				t_window;
 
 typedef struct s_fps
 {
-	time_t		start_time;
-	time_t		old_time;
-	time_t		time;
+	double		start_time;
+	double		old_time;
+	double		time;
 	double		frame_time;
 }				t_fps;
 
@@ -184,8 +190,9 @@ int				ft_raycasting(t_data *data);
 
 void			dda(t_data *data);
 
-time_t			get_time_in_ms(void);
+double			get_time_in_ms(void);
 void			set_fps(t_data *data);
 void			init_texture(t_data *data);
+void			end_game(t_data *data);
 
 #endif

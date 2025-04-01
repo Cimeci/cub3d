@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/01 09:53:42 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:39:51 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@ void	draw_bg(t_data *data)
 {
 	t_img	*img;
 	int		*pixel_addr;
-	int		line_length;
 	int		pixel_index;
+	int		x;
+	int		y;
 
+	x = -1;
 	img = data->window->main;
 	pixel_addr = (int *)img->addr;
-	line_length = img->size_line / 4;
-	for (int x = 0; x < SCREEN_WIDTH; x++)
+	while (++x < SCREEN_WIDTH)
 	{
-		for (int y = 0; y < SCREEN_HEIGHT; y++)
+		y = -1;
+		while (++y < SCREEN_HEIGHT)
 		{
-			pixel_index = y * line_length + x;
-			if (pixel_index >= 0 && pixel_index < (SCREEN_HEIGHT * line_length
-					/ 2))
+			pixel_index = y * img->size_line / 4 + x;
+			if (pixel_index >= 0 && pixel_index < (SCREEN_HEIGHT * \
+				img->size_line / 8))
 				pixel_addr[pixel_index] = data->window->c_color;
 			else
 				pixel_addr[pixel_index] = data->window->f_color;
@@ -45,7 +47,7 @@ bool	is_moved(t_window *win)
 		return (true);
 	}
 	i = 1;
-	while (i < 7)
+	while (i < 8)
 	{
 		if (win->keypress[i] == true)
 			return (true);
@@ -56,10 +58,13 @@ bool	is_moved(t_window *win)
 
 int	ft_raycasting(t_data *data)
 {
+	char	*fps;
+
 	if (is_moved(data->window))
 	{
-		moveplayer(data);
 		set_fps(data);
+		moveplayer(data);
+		fps = ft_itoa((int)ceil(1.0 / data->fps->frame_time));
 		draw_bg(data);
 		dda(data);
 		mlx_put_image_to_window(data->window->mlx, data->window->win,
@@ -67,7 +72,8 @@ int	ft_raycasting(t_data *data)
 		mlx_string_put(data->window->mlx, data->window->win, 10, 15, 0xffffff,
 			"fps: ");
 		mlx_string_put(data->window->mlx, data->window->win, 40, 16, 0xffffff,
-			ft_itoa((int)ceil(1.0 / data->fps->frame_time)));
+			fps);
+		free(fps);
 	}
 	return (0);
 }

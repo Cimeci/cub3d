@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/01 11:14:28 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:13:22 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_game(t_data *data)
 	data->fps = malloc(sizeof(t_fps));
 	init_ray(data);
 	init_fps(data->fps);
-	ft_memset(data->window->keypress, 0, 7);
+	ft_memset(data->window->keypress, 0, 8);
 	data->window->keypress[0] = true;
 }
 
@@ -72,25 +72,13 @@ void	init_data(t_data *data)
 	data->map_lst = NULL;
 	data->player = malloc(sizeof(t_player));
 	if (!data->player)
-	{
-		free(data);
-		return ;
-	}
+		print_error_exit("Malloc error", data);
 	data->window = malloc(sizeof(t_window));
 	if (!data->window)
-	{
-		free(data);
-		free(data->player);
-		return ;
-	}
+		print_error_exit("Malloc error", data);
 	ft_memset(data->window, 0, sizeof(t_window));
 	data->ray = malloc(sizeof(t_ray));
 	if (!data->ray)
-	{
-		free(data);
-		free(data->window);
-		free(data->player);
-		return ;
-	}
+		print_error_exit("Malloc error", data);
 	ft_memset(data->ray, 0, sizeof(t_ray));
 }

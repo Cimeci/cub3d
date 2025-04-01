@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:13:06 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 13:58:13 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/01 12:49:38 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	main(int argc, char **argv)
 	parsing(argv[1], &data);
 	init_game(&data);
 	display(&data);
-	free_all(&data);
 	return (0);
 }
