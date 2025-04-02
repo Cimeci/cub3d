@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 13:28:44 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:42:14 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,7 @@ static void	extract_file(char *filename, t_data *data)
 			suppnl(buf);
 			if (!buf || !check_identifier(buf, data))
 			{
-				while (buf)
-				{
-					free(buf);
-					buf = get_next_line(fd);
-				}
+				finish_file(buf, fd);
 				print_error_exit("Invalid identifier", data);
 			}
 			is_id++;

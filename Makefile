@@ -6,7 +6,7 @@
 #    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/04/02 11:07:14 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/04/02 14:48:26 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC = src/main.c \
 	  src/utils/init.c \
 	  src/utils/time.c \
 	  src/utils/str_utils.c \
+	  src/utils/lst_utils.c \
 	  src/game/window.c \
 	  src/game/raycasting.c \
 	  src/game/move.c \

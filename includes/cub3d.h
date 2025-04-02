@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 11:14:36 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:48:02 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void			display(t_data *data);
 void			free_all(t_data *data);
 void			end_game(t_data *data);
 void			print_error_exit(char *str, t_data *data);
+void			finish_file(char *buf, int fd);
 
 // init.c
 void			init_game(t_data *data);
@@ -77,6 +78,9 @@ void			set_fps(t_data *data);
 char			*take_path(char *buf);
 bool			is_space(char c);
 void			suppnl(char *line);
+bool			only_spaces(char *str);
+
+// lst_utils.c
 char			**ft_convert_lst_to_tab(t_list *map);
 void			replace_spaces(t_list *map);
 

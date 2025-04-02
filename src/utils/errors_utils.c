@@ -6,11 +6,20 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:10 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 10:50:20 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:42:23 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	finish_file(char *buf, int fd)
+{
+	while (buf)
+	{
+		free(buf);
+		buf = get_next_line(fd);
+	}
+}
 
 static void	free_list(t_list **head)
 {

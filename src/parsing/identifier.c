@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 13:35:53 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:58:42 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ static int	compare_identifier(char *id, int len)
 {
 	if (len > 2)
 		return (6);
-	if (!ft_strncmp(id, "NO", len))
+	if (!ft_strncmp(id, "NO", len) && len == 2)
 		return (NO);
-	else if (!ft_strncmp(id, "SO", len))
+	else if (!ft_strncmp(id, "SO", len) && len == 2)
 		return (SO);
-	else if (!ft_strncmp(id, "WE", len))
+	else if (!ft_strncmp(id, "WE", len) && len == 2)
 		return (WE);
-	else if (!ft_strncmp(id, "EA", len))
+	else if (!ft_strncmp(id, "EA", len) && len == 2)
 		return (EA);
-	else if (!ft_strncmp(id, "F", len))
+	else if (!ft_strncmp(id, "F", len) && len == 1)
 		return (F);
-	else if (!ft_strncmp(id, "C", len))
+	else if (!ft_strncmp(id, "C", len) && len == 1)
 		return (C);
 	return (0);
 }
@@ -37,8 +37,10 @@ static bool	check_colors(char *str, int it)
 	char	number[10];
 
 	i = 0;
-	if (it == 3)
+	if (it == 3 && only_spaces(str))
 		return (true);
+	else if (it == 3 && !only_spaces(str))
+		return (false);
 	while (str[i] && (str[i] >= '0' && str[i] <= '9') && i < 10)
 	{
 		number[i] = str[i];
@@ -47,10 +49,8 @@ static bool	check_colors(char *str, int it)
 	number[i] = '\0';
 	if (i == 0 || ft_atoi(number) > 255 || ft_atoi(number) < 0)
 		return (false);
-	if ((it == 2 && !str[i]) || (str[i] == ',' && it < 3))
+	if (it == 2 || (str[i] == ',' && it < 3))
 	{
-		if (it == 2 && !str[i])
-			return (true);
 		if (it < 2 && str[i])
 			i++;
 		return (check_colors(str + i, it + 1));
@@ -83,6 +83,7 @@ static bool	assign_texture(int id, char *buf, t_data *data)
 	char	*path;
 
 	path = take_path(buf);
+	printf("path: %s\n", path);
 	if (!path)
 		return (false);
 	if (id == NO)

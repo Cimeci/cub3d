@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:53:09 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 11:24:35 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:49:34 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	move_player(t_data *data)
 
 	ray = data->ray;
 	if (data->window->keypress[SHIFT] == true)
-		ray->move_speed = 0.02;
+		ray->move_speed *= 2;
 	if (data->window->keypress[W] == true)
 		horizontal_moves(data, ray, 1);
 	if (data->window->keypress[S] == true)

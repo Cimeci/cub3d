@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:04:37 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 10:08:34 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:47:47 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ char	*take_path(char *buf)
 	char	*path;
 	int		len;
 
-	len = ft_strlen(buf);
+	len = ft_strlen(buf) - 1;
 	while (len > 0 && is_space(buf[len]))
 		len--;
-	path = ft_substr(buf, 0, len);
+	path = ft_substr(buf, 0, len + 1);
 	if (!path)
 		return (NULL);
 	return (path);
@@ -46,41 +46,17 @@ void	suppnl(char *line)
 	}
 }
 
-char	**ft_convert_lst_to_tab(t_list *map)
-{
-	int		i;
-	char	**table;
-	t_list	*tmp;
-
-	i = 0;
-	table = malloc(sizeof(char *) * (ft_lstsize(map) + 1));
-	if (!table)
-		return (NULL);
-	tmp = map;
-	while (tmp)
-	{
-		table[i] = ft_strdup(tmp->content);
-		i++;
-		tmp = tmp->next;
-	}
-	table[i] = NULL;
-	return (table);
-}
-
-void	replace_spaces(t_list *map)
+bool	only_spaces(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (map)
+	while (str[i])
 	{
-		i = 0;
-		while (map->content[i])
-		{
-			if (map->content[i] == ' ')
-				map->content[i] = '0';
+		if (is_space(str[i]))
 			i++;
-		}
-		map = map->next;
+		else
+			return (false);
 	}
+	return (true);
 }
