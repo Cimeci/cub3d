@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 15:10:21 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:36:42 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void	init_ray(t_data *data)
 	data->ray->plane_x = 0.66;
 	data->ray->plane_y = 0;
 	if (data->ray->ort == 'E')
-		data->ray->dir_y = -1;
+		data->ray->dir_y = 1;
 	else if (data->ray->ort == 'W')
 	{
-		data->ray->dir_y = 1;
+		data->ray->dir_y = -1;
 		data->ray->plane_x = -0.66;
 	}
 	else if (data->ray->ort == 'S')

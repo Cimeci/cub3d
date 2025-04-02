@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:13:28 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 13:17:01 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:33:25 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ enum			e_key
 
 typedef struct s_ray
 {
-	double		pos_x;   // Position X du joueur
+	double		pos_x;
 	double		pos_y;
-	char		ort;   // Position Y du joueur
-	double		dir_x;   // Direction X du joueur
-	double		dir_y;   // Direction Y du joueur
+	char		ort;
+	double		dir_x;
+	double		dir_y;
 	double		plane_x;
-	double		plane_y; // Plan de la caméra Y
+	double		plane_y;
 	double		camera_x;
 	double		move_speed;
 	double		rot_speed;

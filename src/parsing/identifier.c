@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 14:58:42 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:11:04 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static bool	assign_texture(int id, char *buf, t_data *data)
 	char	*path;
 
 	path = take_path(buf);
-	printf("path: %s\n", path);
 	if (!path)
 		return (false);
 	if (id == NO)
