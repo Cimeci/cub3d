@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 11:06:27 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:26:25 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	extract_map(t_data *data, int fd)
 			print_error_exit("Malloc error", data);
 		}
 		ft_lstadd_back(&data->map_lst, node);
+		buf = get_next_line(fd);
 	}
 }
 

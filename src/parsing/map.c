@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 11:16:26 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:28:31 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*replace_line(t_data *data, char *content)
 	add = malloc(sizeof(char)
 			* (data->map_width - (int)ft_strlen(content) + 1));
 	if (!add)
-		return ;
+		print_error_exit("Malloc error", data);
 	while (i < (data->map_width - (int)ft_strlen(content)))
 		add[i++] = '0';
 	add[i] = '\0';
@@ -61,9 +61,6 @@ static char	*replace_line(t_data *data, char *content)
 static void	format_map(t_data *data, t_list *map)
 {
 	t_list	*tmp;
-	char	*add;
-	char	*line;
-	int		i;
 
 	tmp = map;
 	while (tmp)
@@ -117,14 +114,11 @@ void	check_map(t_data *data, t_list *map)
 	check_content(data, map);
 	replace_spaces(data->map_lst);
 	format_map(data, data->map_lst);
+	if (!check_nb_player(data->map_lst))
+		print_error_exit("Must be one player", data);
 	newmap = ft_convert_lst_to_tab(data->map_lst);
 	if (!newmap)
 		print_error_exit("Newmap clone", data);
-	if (!check_nb_player(data->map_lst))
-	{
-		ft_freetab(newmap);
-		print_error_exit("Must be one player", data);
-	}
 	if (!flood_fill(newmap, data->ray->pos_y, data->ray->pos_x))
 	{
 		ft_freetab(newmap);
