@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 13:17:55 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:35:53 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ static void	convert_colors(t_data *data, char *path, int id)
 	ft_freetab(tmp);
 }
 
-static void	assign_texture(int id, char *buf, t_data *data)
+static bool	assign_texture(int id, char *buf, t_data *data)
 {
 	char	*path;
 
 	path = take_path(buf);
 	if (!path)
-		return ;
+		return (false);
 	if (id == NO)
 		data->window->n_txr = path;
 	else if (id == SO)
@@ -98,11 +98,12 @@ static void	assign_texture(int id, char *buf, t_data *data)
 		if (!check_colors(path, 0))
 		{
 			free(path);
-			print_error_exit("Invalid RGB", data);
+			return (false);
 		}
 		convert_colors(data, path, id);
 		free(path);
 	}
+	return (true);
 }
 
 bool	check_identifier(char *buf, t_data *data)
@@ -129,6 +130,7 @@ bool	check_identifier(char *buf, t_data *data)
 	i += len;
 	while (buf[i] && is_space(buf[i]))
 		i++;
-	assign_texture(id, buf + i, data);
+	if (!assign_texture(id, buf + i, data))
+		return (false);
 	return (true);
 }
