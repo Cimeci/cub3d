@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 09:30:56 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:53:41 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,8 @@
 # define KEY_SHIFT 65505
 # define KEY_C 99
 
-// # define SCREEN_HEIGHT 1080
-// # define SCREEN_WIDTH 1920
-// # define SCREEN_HEIGHT 480
-// # define SCREEN_WIDTH 920
 # define SCREEN_HEIGHT 500
 # define SCREEN_WIDTH 800
-# define WALL_MARGIN 0.3
 
 enum			e_id
 {
@@ -155,12 +150,6 @@ typedef struct s_data
 bool			is_space(char c);
 bool			parsing(char *file, t_data *data);
 
-void			print_error_exit(char *str, t_data *data);
-void			free_all(t_data *data);
-
-void			init_data(t_data *data);
-void			init_ray(t_data *data);
-void			init_game(t_data *data);
 
 bool			check_identifier(char *buf, t_data *data);
 bool			pars_identifier(t_data *data);
@@ -187,8 +176,17 @@ void			init_texture(t_data *data);
 // window.c
 void			display(t_data *data);
 
+// errors_utils.c
+void			free_all(t_data *data);
+void			end_game(t_data *data);
+void			print_error_exit(char *str, t_data *data);
+
+// init.c
+void			init_game(t_data *data);
+void			init_data(t_data *data);
+
+// time.c
 double			get_time_in_ms(void);
 void			set_fps(t_data *data);
-void			end_game(t_data *data);
 
 #endif

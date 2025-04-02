@@ -6,45 +6,40 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:24:33 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/01 17:13:22 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:52:15 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_ray(t_data *data)
+static void	init_ray(t_data *data)
 {
+	data->ray->dir_x = 0;
+	data->ray->dir_y = 0;
+	data->ray->plane_x = 0.66;
+	data->ray->plane_y = 0;
 	if (data->player->or == 'E')
-	{
-		data->ray->dir_x = 0;
 		data->ray->dir_y = -1;
-		data->ray->plane_x = 0.66;
-		data->ray->plane_y = 0;
-	}
 	else if (data->player->or == 'W')
 	{
-		data->ray->dir_x = 0;
 		data->ray->dir_y = 1;
 		data->ray->plane_x = -0.66;
-		data->ray->plane_y = 0;
 	}
 	else if (data->player->or == 'S')
 	{
 		data->ray->dir_x = 1;
-		data->ray->dir_y = 0;
 		data->ray->plane_x = 0;
 		data->ray->plane_y = 0.66;
 	}
 	else if (data->player->or == 'N')
 	{
 		data->ray->dir_x = -1;
-		data->ray->dir_y = 0;
 		data->ray->plane_x = 0;
 		data->ray->plane_y = -0.66;
 	}
 }
 
-void	init_fps(t_fps *fps)
+static void	init_fps(t_fps *fps)
 {
 	fps->start_time = get_time_in_ms();
 	fps->old_time = 0;
