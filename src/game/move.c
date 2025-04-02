@@ -6,13 +6,13 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:53:09 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/01 17:27:51 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:23:28 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	move_horizontals(t_data *data, t_ray *ray, int dir)
+static void	horizontal_moves(t_data *data, t_ray *ray, int dir)
 {
 	if (data->map[(int)(ray->pos_x + ray->dir_x * ray->move_speed * dir)]
 		[(int)(ray->pos_y)] != '1')
@@ -22,7 +22,7 @@ static void	move_horizontals(t_data *data, t_ray *ray, int dir)
 		ray->pos_y += ray->dir_y * ray->move_speed * dir;
 }
 
-static void	move_laterals(t_data *data, t_ray *ray, int dir)
+static void	lateral_moves(t_data *data, t_ray *ray, int dir)
 {
 	if (data->map[(int)(ray->pos_x - ray->dir_y * ray->move_speed * dir)]
 		[(int)(ray->pos_y)] != '1')
@@ -49,7 +49,7 @@ static void	rotate(t_ray *ray, int dir)
 	ray->plane_y = old_plane_x * sin_angle + ray->plane_y * cos_angle ;
 }
 
-void	moveplayer(t_data *data)
+void	move_player(t_data *data)
 {
 	t_ray	*ray;
 

@@ -6,7 +6,7 @@
 #    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/04/01 09:32:46 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/04/02 09:24:36 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ SRC = src/main.c \
 	  src/game/raycasting.c\
 	  src/utils/time.c\
 	  src/game/move.c\
-	  src/game/handle_key.c\
-	  src/game/handle_texture.c
+	  src/game/keys.c\
+	  src/game/textures.c
 
 GNL_SRC = lib/GNL/get_next_line.c \
 	  lib/GNL/get_next_line_utils.c

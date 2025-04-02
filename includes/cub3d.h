@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/01 16:52:23 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:30:56 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,29 +170,25 @@ char			**ft_convert_lst_to_tab(t_list *map);
 
 bool			flood_fill(char **map, int y, int x);
 
-// handle_key.c
-
+// keys.c
 int				close_window(t_data *data);
 int				key_press_move(int keycode, t_data *data);
 int				key_release(int keycode, t_data *data);
 
 // move.c
-
 void			moveplayer(t_data *data);
 
-// window.c
-
-void			display(t_data *data);
-void			draw_bg(t_data *data);
-int				ft_raycasting(t_data *data);
-
-// raycating.c
-
+// raycasting.c
 void			dda(t_data *data);
+
+// textures.c
+void			init_texture(t_data *data);
+
+// window.c
+void			display(t_data *data);
 
 double			get_time_in_ms(void);
 void			set_fps(t_data *data);
-void			init_texture(t_data *data);
 void			end_game(t_data *data);
 
 #endif

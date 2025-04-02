@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/01 17:09:52 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:27:34 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* (ray->side == 0 && ray->step_x <= 0) + (ray->side != 0
 && (ray->step_y <= 0)) + (ray->side != 0) * 2 */
 
-void	draw(t_data *data, t_ray *ray, int line_length, int x)
+static void	draw(t_data *data, t_ray *ray, int line_length, int x)
 {
 	int		pixel_index;
 	double	s;
@@ -40,7 +40,7 @@ void	draw(t_data *data, t_ray *ray, int line_length, int x)
 	}
 }
 
-void	handle_wall(t_ray *ray)
+static void	handle_wall(t_ray *ray)
 {
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->map_x - ray->pos_x + (1 - ray->step_x) / 2)
@@ -67,7 +67,7 @@ void	handle_wall(t_ray *ray)
 		ray->tex_x = 64 - ray->tex_x - 1;
 }
 
-void	ray_projection(t_data *data, t_ray *ray)
+static void	ray_projection(t_data *data, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
@@ -94,7 +94,7 @@ void	ray_projection(t_data *data, t_ray *ray)
 	}
 }
 
-void	handle_step(t_ray *ray)
+static void	handle_step(t_ray *ray)
 {
 	if (ray->ray_dir_x < 0)
 	{

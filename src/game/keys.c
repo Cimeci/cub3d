@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_key.c                                       :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 17:49:13 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/01 17:27:59 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:25:17 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	close_window(t_data *data)
 	printf("Window closed\n");
 	end_game(data);
 	free_all(data);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 int	key_press_move(int keycode, t_data *data)

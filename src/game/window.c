@@ -6,13 +6,13 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/01 17:39:51 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:30:30 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_bg(t_data *data)
+static void	draw_bg(t_data *data)
 {
 	t_img	*img;
 	int		*pixel_addr;
@@ -38,15 +38,16 @@ void	draw_bg(t_data *data)
 	}
 }
 
-bool	is_moved(t_window *win)
+static bool	is_moved(t_window *win)
 {
 	int	i;
+
+	i = 1;
 	if (win->keypress[0] == true)
 	{
 		win->keypress[0] = false;
 		return (true);
 	}
-	i = 1;
 	while (i < 8)
 	{
 		if (win->keypress[i] == true)
@@ -56,7 +57,7 @@ bool	is_moved(t_window *win)
 	return (false);
 }
 
-int	ft_raycasting(t_data *data)
+static int	ft_raycasting(t_data *data)
 {
 	char	*fps;
 
@@ -82,25 +83,16 @@ void	display(t_data *data)
 {
 	data->window->mlx = mlx_init();
 	if (!data->window->mlx || !data->window->main)
-		return ;
+		print_error_exit("Failed to initialize the mlx", data);
 	init_texture(data);
 	data->window->win = mlx_new_window(data->window->mlx, SCREEN_WIDTH,
 			SCREEN_HEIGHT, "Cub3D");
 	if (!data->window->win)
-	{
-		mlx_destroy_display(data->window->mlx);
-		free(data->window->mlx);
-		return ;
-	}
+		print_error_exit("Failed to initialize the window", data);
 	data->window->main->img = mlx_new_image(data->window->mlx, SCREEN_WIDTH,
 			SCREEN_HEIGHT);
 	if (!data->window->main->img)
-	{
-		mlx_destroy_window(data->window->mlx, data->window->win);
-		mlx_destroy_display(data->window->mlx);
-		free(data->window->mlx);
-		return ;
-	}
+		print_error_exit("Failed to create an image", data);
 	data->window->main->addr = mlx_get_data_addr(data->window->main->img,
 			&data->window->main->bpp, &data->window->main->size_line,
 			&data->window->main->endian);
