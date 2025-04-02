@@ -1,7 +1,7 @@
-SO ./textures/tcyback.xpm
-WE ./textures/ebervas.xpm
-NO ./textures/antauber.xpm
-EA ./textures/ael-atmi.xpm
+SO ./textures/NO.xpm
+NO ./textures/EA.xpm
+WE ./textures/SO.xpm
+EA ./textures/WE.xpm
 
 F 0,229,255
 C 255,0,235

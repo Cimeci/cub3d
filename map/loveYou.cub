@@ -1,0 +1,15 @@
+SO ./textures/tcyback.xpm
+WE ./textures/ebervas.xpm
+NO ./textures/antauber.xpm
+EA ./textures/ael-atmi.xpm
+
+F 0,229,255
+C 255,0,235
+
+  1   1
+ 1 1 1 1
+1   1   1
+ 1  S  1
+  1   1
+   1 1
+    1
