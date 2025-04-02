@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 09:27:34 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:12:15 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,25 +120,24 @@ static void	handle_step(t_ray *ray)
 
 void	dda(t_data *data)
 {
-	t_ray	*ray;
-	int		line_length;
-	int		x;
+	t_ray		*ray;
+	static int	i = -1;
+	int			line_length;
+	int			x;
 
 	ray = data->ray;
+	if (++i == 0)
+	{
+		ray->pos_x += 0.5;
+		ray->pos_y += 0.5;
+	}
 	data->window->main = data->window->main;
 	data->window->main->pixel_addr = (int *)data->window->main->addr;
 	line_length = data->window->main->size_line / 4;
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
-		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
-		ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
-		ray->map_x = (int)ray->pos_x;
-		ray->map_y = (int)ray->pos_y;
-		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
-		ray->hit = 0;
+		init_raycasting(ray, x);
 		handle_step(ray);
 		ray_projection(data, ray);
 		handle_wall(ray);

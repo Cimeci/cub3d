@@ -6,7 +6,7 @@
 #    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/04/02 09:24:36 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/04/02 11:07:14 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,16 +30,17 @@ NAME = cub3d
 
 SRC = src/main.c \
 	  src/parsing/parsing.c \
-	  src/parsing/create_map.c \
+	  src/parsing/map.c \
 	  src/parsing/identifier.c \
 	  src/parsing/flood_fill.c \
 	  src/utils/errors_utils.c \
-	  src/utils/init.c\
-	  src/game/window.c\
-	  src/game/raycasting.c\
-	  src/utils/time.c\
-	  src/game/move.c\
-	  src/game/keys.c\
+	  src/utils/init.c \
+	  src/utils/time.c \
+	  src/utils/str_utils.c \
+	  src/game/window.c \
+	  src/game/raycasting.c \
+	  src/game/move.c \
+	  src/game/keys.c \
 	  src/game/textures.c
 
 GNL_SRC = lib/GNL/get_next_line.c \

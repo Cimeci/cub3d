@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:13:06 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/01 12:49:38 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:12:28 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
+
 	if (argc != 2)
 	{
 		printf("Error\nInvalid number of arguments\n");

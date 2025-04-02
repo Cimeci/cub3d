@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/01 11:23:15 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:08:26 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,7 @@ static int	compare_identifier(char *id, int len)
 	return (0);
 }
 
-char	*take_path(char *buf)
-{
-	char	*path;
-	int		len;
-
-	len = ft_strlen(buf);
-	while (len > 0 && is_space(buf[len]))
-		len--;
-	path = ft_substr(buf, 0, len);
-	if (!path)
-		return (NULL);
-	return (path);
-}
-
-bool	check_colors(char *str, int it)
+static bool	check_colors(char *str, int it)
 {
 	int		i;
 	char	number[10];
@@ -72,14 +58,29 @@ bool	check_colors(char *str, int it)
 	return (false);
 }
 
-static void	assign_texture(int id, char *buf, t_data *data)
+static void	convert_colors(t_data *data, char *path, int id)
 {
-	char	*path;
 	char	**tmp;
 	int		r;
 	int		g;
 	int		b;
 	int		color;
+
+	tmp = ft_split(path, ',');
+	r = ft_atoi(tmp[0]);
+	g = ft_atoi(tmp[1]);
+	b = ft_atoi(tmp[2]);
+	color = (r << 16) | (g << 8) | b;
+	if (id == F)
+		data->window->f_color = color;
+	else if (id == C)
+		data->window->c_color = color;
+	ft_freetab(tmp);
+}
+
+static void	assign_texture(int id, char *buf, t_data *data)
+{
+	char	*path;
 
 	path = take_path(buf);
 	if (!path)
@@ -99,17 +100,8 @@ static void	assign_texture(int id, char *buf, t_data *data)
 			free(path);
 			print_error_exit("Invalid RGB", data);
 		}
-		tmp = ft_split(path, ',');
-		r = ft_atoi(tmp[0]);
-		g = ft_atoi(tmp[1]);
-		b = ft_atoi(tmp[2]);
-		color = (r << 16) | (g << 8) | b;
-		if (id == F)
-			data->window->f_color = color;
-		else if (id == C)
-			data->window->c_color = color;
+		convert_colors(data, path, id);
 		free(path);
-		ft_freetab(tmp);
 	}
 }
 

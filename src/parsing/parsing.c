@@ -3,32 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/26 13:03:54 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:06:27 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	is_space(char c)
+int	is_valid_content(char c)
 {
-	if ((c >= 7 && c <= 13) || c == 32)
-		return (true);
-	return (false);
+	if (c != '0' && c != '1' && c != ' ' && c != 'N' && c != 'E'
+		&& c != 'S' && c != 'W')
+		return (0);
+	else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (2);
+	return (1);
 }
 
-static void	suppnl(char *line)
+static void	extract_map(t_data *data, int fd)
 {
-	int	i;
+	char	*buf;
+	t_list	*node;
 
-	i = 0;
-	while (line && line[i])
+	while (1)
 	{
-		if (line[i] == '\n')
-			line[i] = '\0';
-		i++;
+		buf = get_next_line(fd);
+		if (buf && buf[0] != '\n')
+			break ;
+		free(buf);
+	}
+	while (1)
+	{
+		suppnl(buf);
+		if (!buf)
+			break ;
+		node = ft_lstnew(buf);
+		if (!node)
+		{
+			free(buf);
+			print_error_exit("Malloc error", data);
+		}
+		ft_lstadd_back(&data->map_lst, node);
 	}
 }
 
@@ -37,7 +54,6 @@ static void	extract_file(char *filename, t_data *data)
 	int		is_id;
 	int		fd;
 	char	*buf;
-	t_list	*node;
 
 	is_id = 0;
 	fd = open(filename, O_RDONLY);
@@ -52,37 +68,13 @@ static void	extract_file(char *filename, t_data *data)
 			if (!buf || !check_identifier(buf, data))
 			{
 				free(buf);
-				print_error_exit("Invalid identifier", data); // free buffer
+				print_error_exit("Invalid identifier", data);
 			}
 			is_id++;
 		}
 		free(buf);
 	}
-	while (1)
-	{
-		buf = get_next_line(fd);
-		if (buf && buf[0] != '\n')
-		{
-			suppnl(buf);
-			node = ft_lstnew(buf);
-			if (!node)
-				print_error_exit("Malloc error", data); // free buffer
-			ft_lstadd_back(&data->map_lst, node);
-			break ;
-		}
-		free(buf);
-	}
-	while (1)
-	{
-		buf = get_next_line(fd);
-		suppnl(buf);
-		if (!buf)
-			break ;
-		node = ft_lstnew(buf);
-		if (!node)
-			print_error_exit("Malloc error", data); // free buffer
-		ft_lstadd_back(&data->map_lst, node);
-	}
+	extract_map(data, fd);
 }
 
 static void	check_extension(char *file)

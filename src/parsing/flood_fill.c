@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:00:02 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 04:15:36 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:07:44 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static bool	is_valid_position(char **map, int y, int x)
 	return (true);
 }
 
-// X = tout les endroits ou est passer le foodfill 
 bool	flood_fill(char **map, int y, int x)
 {
 	if (!is_valid_position(map, y, x))

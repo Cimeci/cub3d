@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:10 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 09:38:42 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 10:50:20 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	free_all(t_data *data)
 		free(data->window->e_txr);
 	if (data->map)
 		ft_freetab(data->map);
-	if (data->player)
-		free(data->player);
 	if (data->map_lst)
 		free_list(&data->map_lst);
 	if (data->window->txr)

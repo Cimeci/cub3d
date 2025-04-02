@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 04:50:07 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 09:30:30 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 10:24:41 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_raycasting(t_data *data)
 	if (is_moved(data->window))
 	{
 		set_fps(data);
-		moveplayer(data);
+		move_player(data);
 		fps = ft_itoa((int)ceil(1.0 / data->fps->frame_time));
 		draw_bg(data);
 		dda(data);
