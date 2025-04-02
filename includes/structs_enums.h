@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:13:28 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 11:17:12 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:17:01 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_data
 	int			map_width;
 	int			map_height;
 	char		**map;
+	bool		id_tab[6];
 	t_window	*window;
 	t_list		*map_lst;
 	t_ray		*ray;

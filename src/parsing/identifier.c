@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 11:08:26 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:17:55 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,10 @@ bool	check_identifier(char *buf, t_data *data)
 	while (buf[i + len] && !is_space(buf[i + len]))
 		len++;
 	id = compare_identifier(buf + i, len);
+	if (data->id_tab[id] == true)
+		return (false);
+	else
+		data->id_tab[id] = true;
 	if (id == 6)
 		return (false);
 	i += len;

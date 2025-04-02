@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 11:26:25 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:28:44 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ int	is_valid_content(char c)
 	return (1);
 }
 
-static void	extract_map(t_data *data, int fd)
+static void	extract_map(t_data *data, char *buf, int fd)
 {
-	char	*buf;
 	t_list	*node;
 
 	while (1)
 	{
 		buf = get_next_line(fd);
+		if (!buf)
+			print_error_exit("No map was found", data);
 		if (buf && buf[0] != '\n')
 			break ;
 		free(buf);
@@ -58,7 +59,7 @@ static void	extract_file(char *filename, t_data *data)
 
 	is_id = 0;
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 || open(filename, __O_DIRECTORY) > 0)
 		print_error_exit("Failed to access to the .cub file", data);
 	while (is_id < 6)
 	{
@@ -68,27 +69,31 @@ static void	extract_file(char *filename, t_data *data)
 			suppnl(buf);
 			if (!buf || !check_identifier(buf, data))
 			{
-				free(buf);
+				while (buf)
+				{
+					free(buf);
+					buf = get_next_line(fd);
+				}
 				print_error_exit("Invalid identifier", data);
 			}
 			is_id++;
 		}
 		free(buf);
 	}
-	extract_map(data, fd);
+	extract_map(data, buf, fd);
 }
 
-static void	check_extension(char *file)
+static void	check_extension(t_data *data, char *file)
 {
 	if (!file || ft_strlen(file) < 5)
-		print_error_exit("Invalid .cub file", NULL);
+		print_error_exit("Invalid .cub file", data);
 	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4))
-		print_error_exit("Invalid .cub file", NULL);
+		print_error_exit("Invalid .cub file", data);
 }
 
 bool	parsing(char *file, t_data *data)
 {
-	check_extension(file);
+	check_extension(data, file);
 	extract_file(file, data);
 	check_map(data, data->map_lst);
 	data->map = ft_convert_lst_to_tab(data->map_lst);

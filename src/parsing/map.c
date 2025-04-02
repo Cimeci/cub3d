@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 11:28:31 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:55:32 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	check_content(t_data *data, t_list *map)
 		while (tmp->content[i])
 		{
 			if (!is_valid_content(tmp->content[i]))
-				print_error_exit("Invalid map", data);
+				print_error_exit("Map contains an invalid character", data);
 			else if (is_valid_content(tmp->content[i]) == 2)
 			{
 				data->ray->pos_x = j;
