@@ -4,7 +4,7 @@ SO ./textures/tcyback.xpm
 WE ./textures/test.xpm
 EA ./textures/test2.xpm
 
-C 0,000000000,000000000000000000255
+C 0,000000000,   0000000000000000000255              
 
 11  111111 11111
 111100001 1     1

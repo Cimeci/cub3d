@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/03 14:58:58 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:20:15 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	check_colors(char *str, int it)
 
 	i = 0;
 	str = only_spaces(str);
-	if (it == 3 && !is_space(str[i]) && str[i] != '\n')
+	if (it == 3 && (is_space(str[i]) || str[i] == '\0'))
 		return (true);
 	while (*str == '0' && *(str + 1) == '0')
 		str++;
