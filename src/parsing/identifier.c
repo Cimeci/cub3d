@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/03 12:51:02 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:58:58 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,14 @@ static bool	check_colors(char *str, int it)
 		return (true);
 	while (*str == '0' && *(str + 1) == '0')
 		str++;
-	while (str[i] && (str[i] >= '0' && str[i] <= '9') && i < 10 && it < 3)
-	{
-		number[i] = str[i];
-		i++;
-	}
+	if (*str == '0' && *(str + 1) && !is_space(*str + 1) && *(str + 1) != ',')
+		str++;
+	while (*str && (*str >= '0' && *str <= '9'))
+		number[i++] = *str++;
 	number[i] = '\0';
 	if (i == 0 || ft_atoi(number) > 255 || ft_atoi(number) < 0)
 		return (false);
-	str = only_spaces(str + i);
+	str = only_spaces(str);
 	if (it == 2 || (*str == ',' && it < 3))
 	{
 		if (it < 2 && *str)
