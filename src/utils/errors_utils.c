@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:10 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 14:42:23 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/03 09:25:38 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	free_all(t_data *data)
 		free(data->ray);
 	if (data->fps)
 		free(data->fps);
+	if (data->fd > 0)
+		close(data->fd);
 }
 
 void	end_game(t_data *data)
