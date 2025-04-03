@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 10:04:37 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 14:47:47 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:01:09 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void	suppnl(char *line)
 	}
 }
 
-bool	only_spaces(char *str)
+char	*only_spaces(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str)
 	{
-		if (is_space(str[i]))
-			i++;
+		if (is_space(*str))
+			str++;
 		else
-			return (false);
+			return (str);
 	}
-	return (true);
+	return (str);
 }

@@ -6,7 +6,7 @@
 #    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/04/02 14:48:26 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/04/03 10:20:03 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ KING_BLUE = \033[38;2;65;105;225m
 RESET  = \033[0m
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -O3 -Ofast
 NAME = cub3d
 
 SRC = src/main.c \

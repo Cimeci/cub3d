@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 16:11:04 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:51:02 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ static bool	check_colors(char *str, int it)
 	char	number[10];
 
 	i = 0;
-	if (it == 3 && only_spaces(str))
+	str = only_spaces(str);
+	if (it == 3 && !is_space(str[i]) && str[i] != '\n')
 		return (true);
-	else if (it == 3 && !only_spaces(str))
-		return (false);
-	while (str[i] && (str[i] >= '0' && str[i] <= '9') && i < 10)
+	while (*str == '0' && *(str + 1) == '0')
+		str++;
+	while (str[i] && (str[i] >= '0' && str[i] <= '9') && i < 10 && it < 3)
 	{
 		number[i] = str[i];
 		i++;
@@ -49,11 +50,12 @@ static bool	check_colors(char *str, int it)
 	number[i] = '\0';
 	if (i == 0 || ft_atoi(number) > 255 || ft_atoi(number) < 0)
 		return (false);
-	if (it == 2 || (str[i] == ',' && it < 3))
+	str = only_spaces(str + i);
+	if (it == 2 || (*str == ',' && it < 3))
 	{
-		if (it < 2 && str[i])
-			i++;
-		return (check_colors(str + i, it + 1));
+		if (it < 2 && *str)
+			str++;
+		return (check_colors(str, it + 1));
 	}
 	return (false);
 }

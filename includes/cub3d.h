@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/02 14:48:02 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:25:54 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			set_fps(t_data *data);
 char			*take_path(char *buf);
 bool			is_space(char c);
 void			suppnl(char *line);
-bool			only_spaces(char *str);
+char			*only_spaces(char *str);
 
 // lst_utils.c
 char			**ft_convert_lst_to_tab(t_list *map);
