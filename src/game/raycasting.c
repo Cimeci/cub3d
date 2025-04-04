@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:33:41 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 16:27:38 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:35:45 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw(t_data *data, t_ray *ray, int line_length, int x)
 		(ray->side != 0) * 3 - (ray->side != 0 && ray->step_y <= 0)].addr;
 	s = 1.0 * 64 / ray->line_height;
 	tex_pos = (ray->draw_start - SCREEN_HEIGHT / 2 + ray->line_height / 2) * s;
-	while (y < ray->draw_end)
+	while (y <= ray->draw_end)
 	{
 		tex_pos += s;
 		pixel_index = y * line_length + x;

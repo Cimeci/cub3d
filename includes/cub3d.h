@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:41 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/03 11:25:54 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:38:05 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char			**ft_convert_lst_to_tab(t_list *map);
 void			replace_spaces(t_list *map);
 
 // flood_fill.c
-bool			flood_fill(char **map, int y, int x);
+bool			flood_fill(char **map, int y, int x, int i);
 
 // identifier.c
 bool			check_identifier(char *buf, t_data *data);

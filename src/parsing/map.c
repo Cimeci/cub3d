@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/02 12:55:32 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:37:51 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	check_map(t_data *data, t_list *map)
 	newmap = ft_convert_lst_to_tab(data->map_lst);
 	if (!newmap)
 		print_error_exit("Newmap clone", data);
-	if (!flood_fill(newmap, data->ray->pos_y, data->ray->pos_x))
+	if (!flood_fill(newmap, data->ray->pos_y, data->ray->pos_x, 0))
 	{
 		ft_freetab(newmap);
 		print_error_exit("Map not valid", data);
