@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
+#    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/04/03 10:20:03 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/04/14 16:18:08 by inowak--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ RESET  = \033[0m
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -O3 -Ofast
-NAME = cub3d
+NAME = cub3D
 
 SRC = src/main.c \
 	  src/parsing/parsing.c \

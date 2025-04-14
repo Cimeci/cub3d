@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/04/03 09:31:24 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:17:45 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	extract_file(char *filename, t_data *data)
 	while (is_id < 6)
 	{
 		buf = get_next_line(data->fd);
+		if (!buf)
+			print_error_exit("Failed to access to the .cub file", data);
 		if (buf[0] != '\n')
 		{
 			suppnl(buf);
