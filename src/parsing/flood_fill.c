@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:00:02 by inowak--          #+#    #+#             */
-/*   Updated: 2025/04/14 13:57:42 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:04:07 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_valid_position(char **map, int y, int x, int i)
 {
-	if (y < 0 || x < 0 || !map[x] || !map[x][y] || i > 150000)
+	if (y < 0 || x < 0 || !map[x] || !map[x][y] || i > 1500)
 		return (false);
 	return (true);
 }
